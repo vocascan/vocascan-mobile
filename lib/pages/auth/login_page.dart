@@ -26,13 +26,16 @@ class _LoginPageSate extends State<LoginPage>{
             height: size.height * 0.25,
           ),
           SizedBox(height: size.height * 0.05),
-          RoundedInputField(hintText: 'Email', onChanged: (String value) {
-
-          },),
-          RoundedInputField(hintText: 'Password', onChanged: (String value) {
-
-          }, obscureText: true, icon: Icons.password,),
-          RoundedButton(text: 'LOGIN', press: () {})
+          RoundedInputField(
+            hintText: 'Email',
+            onChanged: (String value) {},
+          ),
+          RoundedInputField(
+            hintText: 'Password',
+            onChanged: (String value) {},
+            obscureText: true,
+            icon: Icons.password,
+          ),
         ]),
       ),
     );
