@@ -2,17 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:vocascan_mobile/constants/colors.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_button.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_input_field.dart';
 
-class LoginPage extends StatefulWidget{
+class LoginPage extends StatefulWidget {
   @override
   _LoginPageSate createState() => _LoginPageSate();
-
 }
 
-class _LoginPageSate extends State<LoginPage>{
+class _LoginPageSate extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -36,6 +34,21 @@ class _LoginPageSate extends State<LoginPage>{
             obscureText: true,
             icon: Icons.password,
           ),
+          RoundedButton(text: 'LOGIN', press: () {}),
+          Container(
+              margin: EdgeInsets.symmetric(vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text("Don’t have an account?"),
+                  TextButton(
+                    onPressed: () {
+
+                    },
+                    child: Text("Sign up"),
+                  )
+                ],
+              ))
         ]),
       ),
     );
