@@ -22,15 +22,16 @@ class RoundedInputField extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       width: size.width * 0.8,
       decoration: BoxDecoration(
-        color:PrimaryLightColor,
-        borderRadius: BorderRadius.circular(29),),
+        color:Colors.white,
+        borderRadius: BorderRadius.circular(29),
+        border: Border.all(),),
       child: TextField(
         obscureText: true,
         onChanged: onChanged,
         decoration: InputDecoration(
           icon: Icon(icon, color: primary),
           hintText: hintText,
-          border: InputBorder.none,
+          border: InputBorder.none
         ),
       ),
     );
