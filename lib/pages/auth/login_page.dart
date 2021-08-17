@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_button.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_input_field.dart';
+import 'package:vocascan_mobile/pages/widgets/text_field_container.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -34,9 +35,12 @@ class _LoginPageSate extends State<LoginPage> {
             obscureText: true,
             icon: Icons.password,
           ),
-          RoundedButton(text: 'LOGIN', press: () {}),
+          Container(child: TextButton(onPressed: () {  },
+                child: Text("Forgot Password?"),)),
+          RoundedButton(text: 'LOGIN', press: () {
+
+          }),
           Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
