@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:vocascan_mobile/constants/colors.dart';
+import 'package:vocascan_mobile/pages/widgets/text_field_container.dart';
 
 class RoundedInputField extends StatelessWidget {
   final String hintText;
@@ -16,16 +17,13 @@ class RoundedInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-      width: size.width * 0.8,
+    return TextFieldContainer(
       decoration: BoxDecoration(
         color:Colors.white,
         borderRadius: BorderRadius.circular(29),
         border: Border.all(),),
       child: TextField(
+
         obscureText: true,
         onChanged: onChanged,
         decoration: InputDecoration(
