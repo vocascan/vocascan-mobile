@@ -21,7 +21,7 @@ class _LoginPageSate extends State<LoginPage> {
         child: Column(children: <Widget>[
           SizedBox(height: size.height * 0.15),
           SvgPicture.asset(
-            "assets/images/logos/vocascan-cloud.svg",
+            "assets/images/logos/cloud.svg",
             height: size.height * 0.25,
           ),
           SizedBox(height: size.height * 0.05),
