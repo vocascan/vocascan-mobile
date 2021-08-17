@@ -20,7 +20,7 @@ class _LoginPageSate extends State<LoginPage> {
     return Scaffold(
       body: Center(
         child: Column(children: <Widget>[
-          Flexible(flex: 10,
+          Flexible(flex: 12,
             fit: FlexFit.tight,
             child:  SvgPicture.asset(
             "assets/images/logos/cloud.svg",
