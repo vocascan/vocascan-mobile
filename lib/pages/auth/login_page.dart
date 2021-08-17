@@ -20,29 +20,34 @@ class _LoginPageSate extends State<LoginPage> {
     return Scaffold(
       body: Center(
         child: Column(children: <Widget>[
-          Flexible(flex: 4,
+          Flexible(flex: 10,
             fit: FlexFit.tight,
             child:  SvgPicture.asset(
             "assets/images/logos/cloud.svg",
             height: size.height * 0.25,
           ),),
-          Flexible(child:  RoundedInputField(
+          Flexible(flex:4,
+            child:  RoundedInputField(
             hintText: 'Email',
             onChanged: (String value) {},
           ),),
-          Flexible(child:   RoundedInputField(
+          Flexible(flex:4,
+            child:   RoundedInputField(
             hintText: 'Password',
             onChanged: (String value) {},
             obscureText: true,
             icon: Icons.password,
           ),),
-          Flexible(child:  Container(child: TextButton(onPressed: () {  },
-            child: Text("Forgot Password?"),)
+          Flexible(flex:2,
+              child:  Container(child: TextButton(onPressed: () {  },
+                child: Text("Forgot Password?"),)
           )),
-          Flexible(child:  RoundedButton(text: 'LOGIN', press: () {
+          Flexible(flex:4,
+            child:  RoundedButton(text: 'LOGIN', press: () {
 
             }),),
-          Flexible(child:  Container(
+          Flexible(flex:2,
+              child:  Container(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -56,11 +61,6 @@ class _LoginPageSate extends State<LoginPage> {
                   )
                 ],
               )))
-
-
-
-
-
         ]),
       ),
     );
