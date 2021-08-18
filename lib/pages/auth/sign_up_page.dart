@@ -29,7 +29,8 @@ class _SignUpPageState extends State<SignUpPage> {
                       height: size.height * 0.3,
                       width: size.height * 0.25,
                     ),
-                    TextFieldContainer(child: Text("Try thinking up 3 or more random words you'll easily remember"),
+                    TextFieldContainer(child: Text("Use a strong Password to secure your data",
+                    textAlign: TextAlign.center,),
                       decoration: BoxDecoration(),)
                   ],)) ,),
               Flexible(flex: 2,
