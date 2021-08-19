@@ -18,54 +18,49 @@ class _LoginPageSate extends State<LoginPage> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: Center(
-        child: Column(mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-          SingleChildScrollView(
-            child: Flexible(flex: 12,
-              fit: FlexFit.tight,
-              child:  SvgPicture.asset(
-                "assets/images/logos/cloud.svg",
-                height: size.height * 0.25,
-              ),),
+        body: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SvgPicture.asset(
+                  "assets/images/logos/cloud.svg",
+                  height: size.height * 0.25,
+                ),
+                RoundedInputField(
+                  hintText: 'Email',
+                  onChanged: (String value) {},
+                ),
+                RoundedInputField(
+                  hintText: 'Password',
+                  onChanged: (String value) {},
+                  obscureText: true,
+                  icon: Icons.password,
+                ),
+                Container(
+                    child: TextButton(onPressed: () {  },
+                        child: Text("Forgot Password?"))
+                ),
+                RoundedButton(press: () {},
+                    text: 'LOGIN',
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text("Don’t have an account?"),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => SignUpPage())
+                        );
+                      },
+                      child: Text("Sign up"),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
-          Flexible(flex:4,
-            child:  RoundedInputField(
-            hintText: 'Email',
-            onChanged: (String value) {},
-          ),),
-          Flexible(flex:4,
-            child:   RoundedInputField(
-            hintText: 'Password',
-            onChanged: (String value) {},
-            obscureText: true,
-            icon: Icons.password,
-          ),),
-          Flexible(flex:2,
-              child:  Container(child: TextButton(onPressed: () {  },
-                child: Text("Forgot Password?"),)
-          )),
-          Flexible(flex:4,
-            child:  RoundedButton(text: 'LOGIN', press: () {
-
-            }),),
-          Flexible(flex:2,
-              child:  Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text("Don’t have an account?"),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => SignUpPage()));
-                    },
-                    child: Text("Sign up"),
-                  )
-                ],
-              )))
-        ]),
-      ),
+        )
     );
   }
 }
