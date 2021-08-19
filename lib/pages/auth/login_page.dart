@@ -19,13 +19,16 @@ class _LoginPageSate extends State<LoginPage> {
 
     return Scaffold(
       body: Center(
-        child: Column(children: <Widget>[
-          Flexible(flex: 12,
-            fit: FlexFit.tight,
-            child:  SvgPicture.asset(
-            "assets/images/logos/cloud.svg",
-            height: size.height * 0.25,
-          ),),
+        child: Column(mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+          SingleChildScrollView(
+            child: Flexible(flex: 12,
+              fit: FlexFit.tight,
+              child:  SvgPicture.asset(
+                "assets/images/logos/cloud.svg",
+                height: size.height * 0.25,
+              ),),
+          ),
           Flexible(flex:4,
             child:  RoundedInputField(
             hintText: 'Email',
