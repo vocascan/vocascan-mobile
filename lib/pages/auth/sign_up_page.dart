@@ -25,7 +25,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   flex: 4,
                   child: Flex(direction: Axis.vertical, children: <Widget>[
                     SvgPicture.asset(
-                      "assets/images/graphics/undraw_social_thinking.svg",
+                      "assets/images/illustrations/undraw_my_password.svg",
                       height: size.height * 0.3,
                       width: size.height * 0.25,
                     ),
