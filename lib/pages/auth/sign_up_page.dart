@@ -18,44 +18,43 @@ class _SignUpPageState extends State<SignUpPage> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-        body:  Center(
-          child: Column(mainAxisAlignment: MainAxisAlignment.center,
-            children:  <Widget>[
-              SingleChildScrollView(child: Flexible(
-                  flex: 4,
-                  child: Flex(direction: Axis.vertical, children: <Widget>[
-                    SvgPicture.asset(
-                      "assets/images/illustrations/undraw_my_password.svg",
-                      height: size.height * 0.3,
-                      width: size.height * 0.25,
-                    ),
-                    TextFieldContainer(child: Text("Use a strong Password to secure your data",
-                    textAlign: TextAlign.center,),
-                      decoration: BoxDecoration(),)
-                  ],)) ,),
-              Flexible(flex: 2,
-                child:  RoundedInputField(
+        body: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                SvgPicture.asset(
+                  "assets/images/illustrations/undraw_my_password.svg",
+                  height: size.height * 0.3,
+                  width: size.height * 0.25,
+                ),
+                TextFieldContainer(
+                  child: Text("Use a strong Password to secure your data",
+                  textAlign: TextAlign.center,),
+                  decoration: BoxDecoration(),
+                ),
+                RoundedInputField(
                   hintText: 'Password',
                   icon: Icons.password,
                   obscureText: true,
-                  onChanged: (String value) {},
-                ),),
-              Flexible(flex: 2,
-                child:  RoundedInputField(
+                  onChanged: (String value) {
+
+                  },
+                ),
+                RoundedInputField(
                   hintText: 'Confirm Password',
                   icon: Icons.password,
                   obscureText: true,
                   onChanged: (String value) {
 
                   },
-                ),),
-              Flexible(flex: 2,
-                  child: RoundedButton(text: 'Finish', press: () {
+                ),
+                RoundedButton(text: 'Finish', press: () {
 
-                  },))
-            ],
+                },)
+              ],
+            ),
           ),
-        ),
+        )
     );
   }
 
