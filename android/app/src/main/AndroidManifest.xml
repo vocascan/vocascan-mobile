@@ -2,8 +2,7 @@
     package="com.example.vocascan_mobile">
    <application
         android:label="vocascan_mobile"
-        android:icon="@mipmap/launcher_icon"
-        android:roundIcon="@mipmap/launcher_rect">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
