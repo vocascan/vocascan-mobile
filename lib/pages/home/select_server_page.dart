@@ -12,32 +12,30 @@ class SelectServerPage extends StatelessWidget{
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(body: Center(
-      child: Column(mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          SingleChildScrollView(child:
-            Flexible(flex: 10, fit: FlexFit.tight,
-              child: Flex(direction: Axis.vertical, children: [
-                SvgPicture.asset(
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              SvgPicture.asset(
                 "assets/images/illustrations/undraw_upload.svg",
                 height: size.height * 0.25,
-                width: size.height * 0.25,),
-                TextFieldContainer(child: Text("Select your server for synchronization",
-                  textAlign: TextAlign.center,),
-                  decoration: BoxDecoration(),)
-              ],
-          ))),
-          Flexible(flex: 5,  child: RoundedInputField(onChanged: (String value) {  },
-            hintText: 'Server',
-            icon: Icons.cloud,
-          )),
-          Flexible(flex: 4, child: RoundedButton(text: 'Continue',
-            press: () {
+                width: size.height * 0.25,
+              ),
+              TextFieldContainer(child: Text("Select your server for synchronization",
+                textAlign: TextAlign.center,),
+                decoration: BoxDecoration()
+              ),
+              RoundedInputField(onChanged: (String value) {  },
+                hintText: 'Server',
+                icon: Icons.cloud,
+              ),
+              RoundedButton(text: 'Continue',
+                press: () {
 
-            },
-          ))
-        ],
-      ),
-    ),);
+                },
+              )
+            ],
+          ),
+        )
+    ));
   }
-
 }
