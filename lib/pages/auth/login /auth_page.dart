@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vocascan_mobile/pages/auth/select_server_page.dart';
-import 'package:vocascan_mobile/pages/auth/sign_up_page.dart';
+import 'package:vocascan_mobile/pages/auth/login%20/select_server_page.dart';
 
 import 'login_page.dart';
 
@@ -21,10 +20,8 @@ class _AuthPageState extends State<AuthPage>{
       body: PageView(
           controller: controller,
           children: [
-        SelectServerPage(controller: controller,),
-
-        LoginPage(
-          ),
+            SelectServerPage(controller: controller,),
+            LoginPage(),
       ]),
     );
   }

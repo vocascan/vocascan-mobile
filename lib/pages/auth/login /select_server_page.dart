@@ -7,7 +7,7 @@ import 'package:vocascan_mobile/pages/widgets/rounded_input_field.dart';
 import 'package:vocascan_mobile/pages/widgets/text_field_container.dart';
 
 class SelectServerPage extends StatelessWidget{
-  PageController controller;
+  final PageController controller;
   SelectServerPage({required this.controller});
 
   @override

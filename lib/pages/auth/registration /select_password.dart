@@ -1,18 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_button.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_input_field.dart';
 import 'package:vocascan_mobile/pages/widgets/text_field_container.dart';
 import 'package:vocascan_mobile/services/auth.dart';
 
-class SignUpPage extends StatefulWidget{
+class SelectPasswordPage extends StatefulWidget{
   @override
-  _SignUpPageState createState() => _SignUpPageState();
+  _SelectPasswordPageState createState() => _SelectPasswordPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SelectPasswordPageState extends State<SelectPasswordPage> {
   TextEditingController _passwordController = new TextEditingController();
   TextEditingController _passwordRepeatController = new TextEditingController();
 
@@ -32,7 +31,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 TextFieldContainer(
                   child: Text("Use a strong Password to secure your data",
-                  textAlign: TextAlign.center,),
+                    textAlign: TextAlign.center,),
                   decoration: BoxDecoration(),
                 ),
                 RoundedInputField(
@@ -54,7 +53,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   },
                 ),
                 RoundedButton(text: 'Finish', press: () {
-                    signUp();
+                  signUp();
                 },)
               ],
             ),
@@ -81,4 +80,5 @@ class _SignUpPageState extends State<SignUpPage> {
       // TODO: warn user
     }
   }
+
 }
