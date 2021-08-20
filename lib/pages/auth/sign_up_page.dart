@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_button.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_input_field.dart';
 import 'package:vocascan_mobile/pages/widgets/text_field_container.dart';
+import 'package:vocascan_mobile/services/auth.dart';
 
 class SignUpPage extends StatefulWidget{
   @override
@@ -12,6 +13,8 @@ class SignUpPage extends StatefulWidget{
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  TextEditingController passwordController = new TextEditingController();
+  TextEditingController passwordRepeatController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +38,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 RoundedInputField(
                   hintText: 'Password',
                   icon: Icons.password,
+                  controller: passwordController,
                   obscureText: true,
                   onChanged: (String value) {
 
@@ -43,13 +47,14 @@ class _SignUpPageState extends State<SignUpPage> {
                 RoundedInputField(
                   hintText: 'Confirm Password',
                   icon: Icons.password,
+                  controller: passwordRepeatController,
                   obscureText: true,
                   onChanged: (String value) {
 
                   },
                 ),
                 RoundedButton(text: 'Finish', press: () {
-
+                    signUp();
                 },)
               ],
             ),
@@ -58,4 +63,22 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  signUp()async{
+    var snackBar = new SnackBar(content: Text("Die Registrierung ist aktuell nicht verfügbar!"),);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    var mail = "";
+    var password = passwordController.text;
+
+    var passwordRepeat = passwordRepeatController.text;
+
+    // TODO: check if password is strong enough
+
+    if (password == passwordRepeat){
+      var result = await AuthService.getInstance().signupUser(mail, password);
+      // TODO: handle Result
+
+    }else{
+      // TODO: warn user
+    }
+  }
 }
