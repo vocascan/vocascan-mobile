@@ -23,9 +23,9 @@ Future<void> main() async {
       primarySwatch: Colors.blue,
     ),
     routes: <String, WidgetBuilder>{
-    '/register': (context) => new SignUpPage(),
-    '/home': (context) => new HomePage(),
-  },
+      '/register': (context) => new SignUpPage(),
+      '/home': (context) => new HomePage(),
+    },
     home: _defaultHome,
   ));
 }
