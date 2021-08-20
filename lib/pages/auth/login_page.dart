@@ -16,6 +16,8 @@ class _LoginPageSate extends State<LoginPage> {
   TextEditingController mailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
 
+
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -56,8 +58,9 @@ class _LoginPageSate extends State<LoginPage> {
                     Text("Don’t have an account?"),
                     TextButton(
                       onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => SignUpPage()));
+                        Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context){
+                          return SignUpPage();
+                        }));
                       },
                       child: Text("Sign up"),
                     )
@@ -71,10 +74,17 @@ class _LoginPageSate extends State<LoginPage> {
   }
 
   login()async{
+    var snackBar = new SnackBar(content: Text("Die Anmeldung ist aktuell nicht verfügbar!"),);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+    Navigator.of(context).pushReplacementNamed("/home");
+
     var mail = mailController.value;
     var password = passwordController.value;
+    // TODO: check if var is valid (@ in mail ...)
+
 
     var result = await AuthService.getInstance().loginUser(mail, password);
-    // TODO Handle result
+    // TODO: Handle result
   }
 }

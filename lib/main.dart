@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vocascan_mobile/pages/auth/auth_page.dart';
+import 'package:vocascan_mobile/pages/auth/sign_up_page.dart';
 import 'package:vocascan_mobile/pages/home/home_page.dart';
 import 'package:vocascan_mobile/pages/auth/login_page.dart';
 import 'package:vocascan_mobile/services/auth.dart';
@@ -7,7 +9,7 @@ Future<void> main() async {
 
   AuthService();
   // TODO api
-  Widget _defaultHome = new LoginPage();
+  Widget _defaultHome = new AuthPage();
 
   if (await AuthService.getInstance().isLoggedIn()){
     _defaultHome = HomePage();
@@ -21,6 +23,10 @@ Future<void> main() async {
     theme: ThemeData(
       primarySwatch: Colors.blue,
     ),
+    routes: <String, WidgetBuilder>{
+    '/register': (context) => new SignUpPage(),
+    '/home': (context) => new HomePage(),
+  },
     home: _defaultHome,
   ));
 }

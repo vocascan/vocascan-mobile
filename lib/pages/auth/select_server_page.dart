@@ -7,6 +7,9 @@ import 'package:vocascan_mobile/pages/widgets/rounded_input_field.dart';
 import 'package:vocascan_mobile/pages/widgets/text_field_container.dart';
 
 class SelectServerPage extends StatelessWidget{
+  PageController controller;
+  SelectServerPage({required this.controller});
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -34,7 +37,10 @@ class SelectServerPage extends StatelessWidget{
               ),
               RoundedButton(text: 'Continue',
                 press: () {
-
+                  controller.animateToPage(controller.page!.toInt() + 1,
+                      duration: Duration(milliseconds: 400),
+                      curve: Curves.easeIn
+                  );
                 },
               )
             ],
