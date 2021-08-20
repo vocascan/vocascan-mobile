@@ -13,8 +13,8 @@ class SignUpPage extends StatefulWidget{
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  TextEditingController passwordController = new TextEditingController();
-  TextEditingController passwordRepeatController = new TextEditingController();
+  TextEditingController _passwordController = new TextEditingController();
+  TextEditingController _passwordRepeatController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 RoundedInputField(
                   hintText: 'Password',
                   icon: Icons.password,
-                  controller: passwordController,
+                  controller: _passwordController,
                   obscureText: true,
                   onChanged: (String value) {
 
@@ -47,7 +47,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 RoundedInputField(
                   hintText: 'Confirm Password',
                   icon: Icons.password,
-                  controller: passwordRepeatController,
+                  controller: _passwordRepeatController,
                   obscureText: true,
                   onChanged: (String value) {
 
@@ -67,9 +67,9 @@ class _SignUpPageState extends State<SignUpPage> {
     var snackBar = new SnackBar(content: Text('The login is currently not available'),);
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
     var mail = "";
-    var password = passwordController.text;
+    var password = _passwordController.text;
 
-    var passwordRepeat = passwordRepeatController.text;
+    var passwordRepeat = _passwordRepeatController.text;
 
     // TODO: check if password is strong enough
 

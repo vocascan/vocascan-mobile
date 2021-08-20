@@ -13,8 +13,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageSate extends State<LoginPage> {
-  TextEditingController mailController = new TextEditingController();
-  TextEditingController passwordController = new TextEditingController();
+  TextEditingController _mailController = new TextEditingController();
+  TextEditingController _passwordController = new TextEditingController();
 
 
 
@@ -32,13 +32,13 @@ class _LoginPageSate extends State<LoginPage> {
                   height: size.height * 0.25,
                 ),
                 RoundedInputField(
-                  controller: mailController,
+                  controller: _mailController,
                   hintText: 'Email',
                   onChanged: (String value) {},
                 ),
                 RoundedInputField(
                   hintText: 'Password',
-                  controller: passwordController,
+                  controller: _passwordController,
                   onChanged: (String value) {},
                   obscureText: true,
                   icon: Icons.password,
@@ -79,8 +79,8 @@ class _LoginPageSate extends State<LoginPage> {
 
     Navigator.of(context).pushReplacementNamed("/home");
 
-    var mail = mailController.value;
-    var password = passwordController.value;
+    var mail = _mailController.value;
+    var password = _passwordController.value;
     // TODO: check if var is valid (@ in mail ...)
 
 
