@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vocascan_mobile/pages/auth/sign_up_page.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_button.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_input_field.dart';
-import 'package:vocascan_mobile/pages/widgets/text_field_container.dart';
+import 'package:vocascan_mobile/services/auth.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -13,6 +13,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageSate extends State<LoginPage> {
+  TextEditingController mailController = new TextEditingController();
+  TextEditingController passwordController = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -27,20 +30,24 @@ class _LoginPageSate extends State<LoginPage> {
                   height: size.height * 0.25,
                 ),
                 RoundedInputField(
+                  controller: mailController,
                   hintText: 'Email',
                   onChanged: (String value) {},
                 ),
                 RoundedInputField(
                   hintText: 'Password',
+                  controller: passwordController,
                   onChanged: (String value) {},
                   obscureText: true,
                   icon: Icons.password,
                 ),
                 Container(
-                    child: TextButton(onPressed: () {  },
+                    child: TextButton(onPressed: (){},
                         child: Text("Forgot Password?"))
                 ),
-                RoundedButton(press: () {},
+                RoundedButton(press: () {
+                  login();
+                },
                     text: 'LOGIN',
                 ),
                 Row(
@@ -61,5 +68,13 @@ class _LoginPageSate extends State<LoginPage> {
           ),
         )
     );
+  }
+
+  login()async{
+    var mail = mailController.value;
+    var password = passwordController.value;
+
+    var result = await AuthService.getInstance().loginUser(mail, password);
+    // TODO Handle result
   }
 }

@@ -12,6 +12,8 @@ class SignUpPage extends StatefulWidget{
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  TextEditingController password = new TextEditingController();
+  TextEditingController passwordRepeat = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 RoundedInputField(
                   hintText: 'Password',
                   icon: Icons.password,
+                  controller: password,
                   obscureText: true,
                   onChanged: (String value) {
 
@@ -43,6 +46,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 RoundedInputField(
                   hintText: 'Confirm Password',
                   icon: Icons.password,
+                  controller: passwordRepeat,
                   obscureText: true,
                   onChanged: (String value) {
 

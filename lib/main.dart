@@ -18,11 +18,10 @@ Future<void> main() async {
   runApp(MaterialApp(
     title: 'Vocascan',
     navigatorKey: navigatorKey,
-
     theme: ThemeData(
       primarySwatch: Colors.blue,
     ),
-    home: HomePage(),
+    home: _defaultHome,
   ));
 }
 

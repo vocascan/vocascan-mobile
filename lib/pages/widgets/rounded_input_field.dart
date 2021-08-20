@@ -7,9 +7,12 @@ class RoundedInputField extends StatelessWidget {
   final String hintText;
   final IconData icon;
   final ValueChanged<String> onChanged;
+  final TextEditingController controller;
   final bool obscureText;
+
   const RoundedInputField({
     required this.hintText,
+    required this.controller,
     this.icon = Icons.person,
     required this.onChanged,
     this.obscureText = false,
@@ -23,7 +26,7 @@ class RoundedInputField extends StatelessWidget {
         borderRadius: BorderRadius.circular(29),
         border: Border.all(),),
       child: TextField(
-
+        controller: controller,
         obscureText: obscureText,
         onChanged: onChanged,
         decoration: InputDecoration(

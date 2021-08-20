@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 
 class AuthService{
-
-
   // static instance
   static AuthService? instance;
 
   // will never be null, but the kex is generated
   // in the main.dart after class init
   static GlobalKey<NavigatorState>? key;
-
-
 
   AuthService() {
     instance = this;
@@ -24,4 +20,9 @@ class AuthService{
   Future<bool> isLoggedIn()async{
     return false;
   }
+
+  Future<bool> loginUser(mail, password)async{
+    return false;
+  }
+
 }

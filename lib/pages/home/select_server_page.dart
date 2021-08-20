@@ -10,6 +10,8 @@ class SelectServerPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    TextEditingController server_url = new TextEditingController();
+
 
     return Scaffold(body: Center(
         child: SingleChildScrollView(
@@ -24,7 +26,9 @@ class SelectServerPage extends StatelessWidget{
                 textAlign: TextAlign.center,),
                 decoration: BoxDecoration()
               ),
-              RoundedInputField(onChanged: (String value) {  },
+              RoundedInputField(
+                controller: server_url,
+                onChanged: (String value) {  },
                 hintText: 'Server',
                 icon: Icons.cloud,
               ),
