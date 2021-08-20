@@ -64,7 +64,7 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   signUp()async{
-    var snackBar = new SnackBar(content: Text("Die Registrierung ist aktuell nicht verfügbar!"),);
+    var snackBar = new SnackBar(content: Text('The login is currently not available'),);
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
     var mail = "";
     var password = passwordController.text;
