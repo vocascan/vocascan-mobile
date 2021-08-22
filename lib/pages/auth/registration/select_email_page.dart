@@ -15,6 +15,7 @@ class SelectEmailPage extends StatefulWidget{
 
 class _SelectEmailPageState extends State<SelectEmailPage> {
   final TextEditingController _mailController = new TextEditingController();
+  final TextEditingController _usernameController = new TextEditingController();
 
   bool _isButtonDisabled = true;
 
@@ -31,7 +32,7 @@ class _SelectEmailPageState extends State<SelectEmailPage> {
               width: size.height * 0.25,
             ),
             TextFieldContainer(
-              child: Text("Please specify your email",
+              child: Text("Please specify your email and username",
                 textAlign: TextAlign.center,),
               decoration: BoxDecoration(),
             ),
@@ -40,6 +41,9 @@ class _SelectEmailPageState extends State<SelectEmailPage> {
                 String emailPattern = r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
                 _isButtonDisabled = !RegExp(emailPattern).hasMatch(email);
               });
+            },),
+            RoundedInputField(icon: Icons.person, controller: _usernameController, hintText: "Username", onChanged: (String username) {
+
             },),
             RoundedButton(text: "Continue", disabled: _isButtonDisabled, press: (){
               return _isButtonDisabled ? null : widget.controller.animateToPage(widget.controller.page!.toInt() + 1,
