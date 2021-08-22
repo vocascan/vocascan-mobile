@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -17,7 +19,8 @@ class _SelectEmailPageState extends State<SelectEmailPage> {
   final TextEditingController _mailController = new TextEditingController();
   final TextEditingController _usernameController = new TextEditingController();
 
-  bool _isButtonDisabled = true;
+  bool _isUsernameValid = false;
+  bool _isEmailValid = false;
 
   @override
   Widget build(BuildContext context) {
@@ -37,16 +40,19 @@ class _SelectEmailPageState extends State<SelectEmailPage> {
               decoration: BoxDecoration(),
             ),
             RoundedInputField(controller: _mailController, hintText: "Email", onChanged: (String email) {
+              String emailPattern = r"^\S+@\S+.\S+$";
               setState(() {
-                String emailPattern = r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
-                _isButtonDisabled = !RegExp(emailPattern).hasMatch(email);
+                _isEmailValid = RegExp(emailPattern).hasMatch(email);
               });
             },),
             RoundedInputField(icon: Icons.person, controller: _usernameController, hintText: "Username", onChanged: (String username) {
-
+             setState(() {
+               _isUsernameValid = username.length >= 2
+                   && username.length <= 32;
+             });
             },),
-            RoundedButton(text: "Continue", disabled: _isButtonDisabled, press: (){
-              return _isButtonDisabled ? null : widget.controller.animateToPage(widget.controller.page!.toInt() + 1,
+            RoundedButton(text: "Continue", disabled: !(_isUsernameValid && _isEmailValid), press: (){
+              return !(_isUsernameValid && _isEmailValid) ? null : widget.controller.animateToPage(widget.controller.page!.toInt() + 1,
                   duration: Duration(milliseconds: 400),
                   curve: Curves.easeIn
               );

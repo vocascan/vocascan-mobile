@@ -71,12 +71,8 @@ class _SelectPasswordPageState extends State<SelectPasswordPage> {
     RegExp regExp = RegExp(securePasswordPattern);
 
     setState(() {
-      if (password == passwordRepeat){
-        _isButtonDisabled = !regExp.hasMatch(password);
-      }
-      else{
-        _isButtonDisabled = true;
-      }
+      _isButtonDisabled = !(password == passwordRepeat
+          && regExp.hasMatch(password));
     });
   }
 
