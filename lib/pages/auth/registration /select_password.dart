@@ -14,6 +14,7 @@ class SelectPasswordPage extends StatefulWidget{
 class _SelectPasswordPageState extends State<SelectPasswordPage> {
   TextEditingController _passwordController = new TextEditingController();
   TextEditingController _passwordRepeatController = new TextEditingController();
+  bool _isButtonDisabled = true;
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +40,8 @@ class _SelectPasswordPageState extends State<SelectPasswordPage> {
                   icon: Icons.password,
                   controller: _passwordController,
                   obscureText: true,
-                  onChanged: (String value) {
-
+                  onChanged: (String password) {
+                    validatePassword();
                   },
                 ),
                 RoundedInputField(
@@ -48,12 +49,12 @@ class _SelectPasswordPageState extends State<SelectPasswordPage> {
                   icon: Icons.password,
                   controller: _passwordRepeatController,
                   obscureText: true,
-                  onChanged: (String value) {
-
+                  onChanged: (String password) {
+                    validatePassword();
                   },
                 ),
-                RoundedButton(text: 'Finish', press: () {
-                  signUp();
+                RoundedButton(text: 'Finish', disabled: _isButtonDisabled, press: () {
+                  return _isButtonDisabled ? null : signUp();
                 },)
               ],
             ),
@@ -62,23 +63,26 @@ class _SelectPasswordPageState extends State<SelectPasswordPage> {
     );
   }
 
-  signUp()async{
-    var snackBar = new SnackBar(content: Text('The login is currently not available'),);
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    var mail = "";
+  validatePassword()async{
     var password = _passwordController.text;
-
     var passwordRepeat = _passwordRepeatController.text;
 
-    // TODO: check if password is strong enough
+    String  securePassword = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+    RegExp regExp = new RegExp(securePassword);
 
-    if (password == passwordRepeat){
-      var result = await AuthService.getInstance().signupUser(mail, password);
-      // TODO: handle Result
+    setState(() {
+      if (password == passwordRepeat){
+        _isButtonDisabled = !regExp.hasMatch(password);
+      }
+      else{
+        _isButtonDisabled = true;
+      }
+    });
+  }
 
-    }else{
-      // TODO: warn user
-    }
+
+  signUp()async{
+    //  // TODO: Sing Up user
   }
 
 }
