@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vocascan_mobile/pages/auth/login%20/auth_page.dart';
-import 'package:vocascan_mobile/pages/auth/registration%20/sign_up_page.dart';
+import 'package:vocascan_mobile/pages/auth/login/auth_page.dart';
+import 'package:vocascan_mobile/pages/auth/registration/sign_up_page.dart';
 import 'package:vocascan_mobile/pages/home/home_page.dart';
 import 'package:vocascan_mobile/services/auth.dart';
 

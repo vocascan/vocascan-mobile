@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:vocascan_mobile/pages/auth/registration%20/select_email_page.dart';
-import 'package:vocascan_mobile/pages/auth/registration%20/select_password.dart';
+import 'package:vocascan_mobile/pages/auth/registration/select_email_page.dart';
+import 'package:vocascan_mobile/pages/auth/registration/select_password.dart';
 
 
 class SignUpPage extends StatefulWidget{

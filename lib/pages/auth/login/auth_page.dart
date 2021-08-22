@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vocascan_mobile/pages/auth/login%20/select_server_page.dart';
+import 'package:vocascan_mobile/pages/auth/login/select_server_page.dart';
 
 import 'login_page.dart';
 
