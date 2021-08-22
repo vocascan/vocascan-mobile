@@ -25,7 +25,7 @@ class AuthService {
     return false;
   }
 
-  Future<bool> signupUser(mail, password) async {
+  Future<bool> signupUser(username, mail, password) async {
     return false;
   }
 }
