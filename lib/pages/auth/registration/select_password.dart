@@ -67,8 +67,8 @@ class _SelectPasswordPageState extends State<SelectPasswordPage> {
     var password = _passwordController.text;
     var passwordRepeat = _passwordRepeatController.text;
 
-    String  securePassword = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
-    RegExp regExp = new RegExp(securePassword);
+    String  securePasswordPattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+    RegExp regExp = RegExp(securePasswordPattern);
 
     setState(() {
       if (password == passwordRepeat){
