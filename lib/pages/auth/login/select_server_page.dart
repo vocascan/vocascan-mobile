@@ -43,22 +43,7 @@ class _SelectServerPageState extends State<SelectServerPage> {
               RoundedInputField(
                 controller: _serverUrl,
                 onChanged: (String serverUrl) async{
-                  try{
-                    final response = await get(Uri.parse("$serverUrl/api/info"));
-                    setState(() {
-                      if (response.statusCode == 200) {
-                        final jsonResult = json.decode(response.body);
-                        _serverValid = jsonResult.containsKey('identifier');
-                      } else {
-                        _serverValid = false;
-                      }
-                    });
-                  }
-                  catch(_){
-                    setState(() {
-                      _serverValid = false;
-                    });
-                  }
+                  validateServer(serverUrl);
                 },
                 hintText: 'https://domain.com',
                 icon: Icons.cloud,
@@ -75,5 +60,24 @@ class _SelectServerPageState extends State<SelectServerPage> {
           ),
         )
     ));
+  }
+
+  void validateServer(String serverUrl) async{
+    try{
+      final response = await get(Uri.parse("$serverUrl/api/info"));
+      setState(() {
+        if (response.statusCode == 200) {
+          final jsonResult = json.decode(response.body);
+          _serverValid = jsonResult.containsKey('identifier');
+        } else {
+          _serverValid = false;
+        }
+      });
+    }
+    catch(_){
+      setState(() {
+        _serverValid = false;
+      });
+    }
   }
 }
