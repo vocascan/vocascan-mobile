@@ -18,6 +18,7 @@ class _AuthPageState extends State<AuthPage>{
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
+          physics: NeverScrollableScrollPhysics(),
           controller: controller,
           children: [
             SelectServerPage(controller: controller,),
