@@ -45,7 +45,7 @@ class _SelectServerPageState extends State<SelectServerPage> {
                 onChanged: (String serverUrl) async{
                   validateServer(serverUrl);
                 },
-                hintText: 'https://domain.com',
+                hintText: 'Server',
                 icon: Icons.cloud,
               ),
               RoundedButton(disabled: !_serverValid, text: 'Continue',
@@ -64,7 +64,7 @@ class _SelectServerPageState extends State<SelectServerPage> {
 
   void validateServer(String serverUrl) async{
     try{
-      final response = await get(Uri.parse("$serverUrl/api/info"));
+      final response = await get(Uri.parse("https://$serverUrl/api/info"));
       setState(() {
         if (response.statusCode == 200) {
           final jsonResult = json.decode(response.body);
