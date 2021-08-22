@@ -5,11 +5,18 @@ import 'package:vocascan_mobile/pages/widgets/rounded_button.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_input_field.dart';
 import 'package:vocascan_mobile/pages/widgets/text_field_container.dart';
 
-class SelectEmailPage extends StatelessWidget{
+class SelectEmailPage extends StatefulWidget{
   final PageController controller;
   SelectEmailPage({required this.controller});
 
+  @override
+  _SelectEmailPageState createState() => _SelectEmailPageState();
+}
+
+class _SelectEmailPageState extends State<SelectEmailPage> {
   final TextEditingController _mailController = new TextEditingController();
+
+  bool _isButtonDisabled = true;
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +35,14 @@ class SelectEmailPage extends StatelessWidget{
                 textAlign: TextAlign.center,),
               decoration: BoxDecoration(),
             ),
-            RoundedInputField(controller: _mailController, hintText: "Email", onChanged: (String value) {
-
+            RoundedInputField(controller: _mailController, hintText: "Email", onChanged: (String email) {
+              setState(() {
+                String emailPattern = r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
+                _isButtonDisabled = !RegExp(emailPattern).hasMatch(email);
+              });
             },),
-            RoundedButton(text: "Continue", press: (){
-              controller.animateToPage(controller.page!.toInt() + 1,
+            RoundedButton(text: "Continue", disabled: _isButtonDisabled, press: (){
+              return _isButtonDisabled ? null : widget.controller.animateToPage(widget.controller.page!.toInt() + 1,
                   duration: Duration(milliseconds: 400),
                   curve: Curves.easeIn
               );
@@ -42,5 +52,4 @@ class SelectEmailPage extends StatelessWidget{
       ))
     );
   }
-  
 }
