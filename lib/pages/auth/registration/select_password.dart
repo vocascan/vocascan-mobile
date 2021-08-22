@@ -14,7 +14,7 @@ class SelectPasswordPage extends StatefulWidget{
 class _SelectPasswordPageState extends State<SelectPasswordPage> {
   TextEditingController _passwordController = new TextEditingController();
   TextEditingController _passwordRepeatController = new TextEditingController();
-  bool _isButtonDisabled = true;
+  bool _passwordValid = true;
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +53,8 @@ class _SelectPasswordPageState extends State<SelectPasswordPage> {
                     validatePassword();
                   },
                 ),
-                RoundedButton(text: 'Finish', disabled: _isButtonDisabled, press: () {
-                  return _isButtonDisabled ? null : signUp();
+                RoundedButton(text: 'Finish', disabled: _passwordValid, press: () {
+                  return _passwordValid ? null : signUp();
                 },)
               ],
             ),
@@ -71,7 +71,7 @@ class _SelectPasswordPageState extends State<SelectPasswordPage> {
     RegExp regExp = RegExp(securePasswordPattern);
 
     setState(() {
-      _isButtonDisabled = !(password == passwordRepeat
+      _passwordValid = !(password == passwordRepeat
           && regExp.hasMatch(password));
     });
   }
