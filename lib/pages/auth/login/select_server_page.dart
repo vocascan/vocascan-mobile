@@ -1,14 +1,15 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_button.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_input_field.dart';
 import 'package:vocascan_mobile/pages/widgets/text_field_container.dart';
 import 'package:http/http.dart';
+
 
 class SelectServerPage extends StatefulWidget{
   final PageController controller;
@@ -20,7 +21,8 @@ class SelectServerPage extends StatefulWidget{
 
 class _SelectServerPageState extends State<SelectServerPage> {
   bool _serverValid = false;
-  TextEditingController _serverUrl = new TextEditingController();
+  TextEditingController _serverUrlController = new TextEditingController();
+  final _storage = new FlutterSecureStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,7 @@ class _SelectServerPageState extends State<SelectServerPage> {
                 decoration: BoxDecoration()
               ),
               RoundedInputField(
-                controller: _serverUrl,
+                controller: _serverUrlController,
                 onChanged: (String serverUrl) async{
                   validateServer(serverUrl);
                 },
