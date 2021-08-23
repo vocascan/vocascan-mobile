@@ -9,6 +9,7 @@ import 'package:vocascan_mobile/pages/widgets/rounded_button.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_input_field.dart';
 import 'package:vocascan_mobile/pages/widgets/text_field_container.dart';
 import 'package:http/http.dart';
+import 'package:vocascan_mobile/services/storage.dart';
 
 
 class SelectServerPage extends StatefulWidget{
@@ -22,7 +23,6 @@ class SelectServerPage extends StatefulWidget{
 class _SelectServerPageState extends State<SelectServerPage> {
   bool _serverValid = false;
   TextEditingController _serverUrlController = new TextEditingController();
-  final _storage = new FlutterSecureStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -66,11 +66,17 @@ class _SelectServerPageState extends State<SelectServerPage> {
 
   void validateServer(String serverUrl) async{
     try{
-      final response = await get(Uri.parse("https://$serverUrl/api/info"));
+      serverUrl = "https://$serverUrl/api/info";
+      final response = await get(Uri.parse(serverUrl));
+
       setState(() {
         if (response.statusCode == 200) {
           final jsonResult = json.decode(response.body);
           _serverValid = jsonResult.containsKey('identifier');
+
+          if (_serverValid){
+            StorageService.add('server', _serverUrlController.text);
+          }
         } else {
           _serverValid = false;
         }
