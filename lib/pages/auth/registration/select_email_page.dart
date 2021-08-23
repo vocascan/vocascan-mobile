@@ -64,7 +64,7 @@ class _SelectEmailPageState extends State<SelectEmailPage> {
     setState(() {
       _isEmailValid = RegExp(emailPattern).hasMatch(email);
       if (_isEmailValid){
-        StorageService.add('email', email);
+        StorageService.getInstance().add('email', email);
       }
     });
   }
@@ -74,7 +74,7 @@ class _SelectEmailPageState extends State<SelectEmailPage> {
       _isUsernameValid = username.length >= 2
           && username.length <= 32;
       if (_isUsernameValid){
-        StorageService.add('username', username);
+        StorageService.getInstance().add('username', username);
       }
     });
   }

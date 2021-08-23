@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_button.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_input_field.dart';
@@ -75,7 +74,7 @@ class _SelectServerPageState extends State<SelectServerPage> {
           _serverValid = jsonResult.containsKey('identifier');
 
           if (_serverValid){
-            StorageService.add('server', _serverUrlController.text);
+            StorageService.getInstance().add('server', _serverUrlController.text);
           }
         } else {
           _serverValid = false;
