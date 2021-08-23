@@ -25,7 +25,7 @@ dependencies:
     sdk: flutter
   flutter_svg:
   http:
-  shared_preferences:
+  flutter_secure_storage:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
