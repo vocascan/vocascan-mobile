@@ -6,4 +6,12 @@ class StorageService {
   static add(String key, String value) {
     _storage.write(key: key, value: value);
   }
+
+  static get(String key) async{
+    return await _storage.read(key: key);
+  }
+
+  static delete(String key) async{
+    return await _storage.delete(key: key);
+  }
 }
