@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_button.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_input_field.dart';
 import 'package:vocascan_mobile/pages/widgets/text_field_container.dart';
+import 'package:vocascan_mobile/services/storage.dart';
 
 class SelectEmailPage extends StatefulWidget{
   final PageController controller;
@@ -40,16 +41,11 @@ class _SelectEmailPageState extends State<SelectEmailPage> {
               decoration: BoxDecoration(),
             ),
             RoundedInputField(controller: _mailController, hintText: "Email", onChanged: (String email) {
-              String emailPattern = r"^\S+@\S+.\S+$";
-              setState(() {
-                _isEmailValid = RegExp(emailPattern).hasMatch(email);
-              });
+              validateEmail(email);
             },),
-            RoundedInputField(icon: Icons.person, controller: _usernameController, hintText: "Username", onChanged: (String username) {
-             setState(() {
-               _isUsernameValid = username.length >= 2
-                   && username.length <= 32;
-             });
+            RoundedInputField(icon: Icons.person, controller: _usernameController,
+              hintText: "Username", onChanged: (String username) {
+              validateUsername(username);
             },),
             RoundedButton(text: "Continue", disabled: !(_isUsernameValid && _isEmailValid), press: (){
               return !(_isUsernameValid && _isEmailValid) ? null : widget.controller.animateToPage(widget.controller.page!.toInt() + 1,
@@ -61,5 +57,25 @@ class _SelectEmailPageState extends State<SelectEmailPage> {
         ),
       ))
     );
+  }
+
+  validateEmail(String email){
+    String emailPattern = r"^\S+@\S+.\S+$";
+    setState(() {
+      _isEmailValid = RegExp(emailPattern).hasMatch(email);
+      if (_isEmailValid){
+        StorageService.add('email', email);
+      }
+    });
+  }
+
+  validateUsername(String username){
+    setState(() {
+      _isUsernameValid = username.length >= 2
+          && username.length <= 32;
+      if (_isUsernameValid){
+        StorageService.add('username', username);
+      }
+    });
   }
 }
