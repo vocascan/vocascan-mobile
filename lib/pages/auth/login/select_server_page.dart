@@ -22,6 +22,7 @@ class SelectServerPage extends StatefulWidget{
 class _SelectServerPageState extends State<SelectServerPage> {
   bool _serverValid = false;
   TextEditingController _serverUrlController = new TextEditingController();
+  StorageService _storageService = StorageService.getInstance();
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +75,7 @@ class _SelectServerPageState extends State<SelectServerPage> {
           _serverValid = jsonResult.containsKey('identifier');
 
           if (_serverValid){
-            StorageService.getInstance().add('server', _serverUrlController.text);
+           _storageService.add('server', _serverUrlController.text);
           }
         } else {
           _serverValid = false;
