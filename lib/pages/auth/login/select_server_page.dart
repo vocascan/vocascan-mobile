@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:vocascan_mobile/api/schemes/endpoint_info.dart';
-import 'package:vocascan_mobile/constants/versions.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_button.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_input_field.dart';
 import 'package:vocascan_mobile/pages/widgets/text_field_container.dart';
@@ -86,17 +85,23 @@ class _SelectServerPageState extends State<SelectServerPage> {
       ApiClientService.getInstance().setHomeServerUrl(serverUrl);
       final EndpointInfoResponseScheme serverInfo = await ApiClientService.getInstance().endpointInfo();
 
-      if(serverInfo.identifier == "vocascan-server" && supportedVersions.contains(serverInfo.version)) {
-        setState(() {
-          _serverValid = true;
-          StorageService.getInstance().add('server', serverUrl);
-        });
-      } else {
-        setState(() {
-          _serverValid = false;
-        });
-      }
-    } catch(e) {
+      setState(() {
+        _serverValid = true;
+        StorageService.getInstance().add('server', serverUrl);
+      });
+
+    } on EndpointInfoVersionNotSupported catch(_) {
+      setState(() {
+        _serverValid = false;
+      });
+      // TODO Show Version to User
+    } on EndpointInfoServerNotSupported catch(_) {
+      setState(() {
+        _serverValid = false;
+      });
+
+      // TODO Show Server to User
+    } catch(_) {
       setState(() {
         _serverValid = false;
       });

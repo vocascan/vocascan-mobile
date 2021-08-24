@@ -12,7 +12,7 @@ Future<void> main() async {
   String homeServerUrl = "";
 
   if(await StorageService.getInstance().exists("server")) {
-    homeServerUrl = await StorageService.getInstance().get("server");
+    homeServerUrl = (await StorageService.getInstance().get("server"))!;
   }
 
   // TODO Validate URL
