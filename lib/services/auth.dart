@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vocascan_mobile/services/api_client.dart';
 
 class AuthService {
   // static instance
@@ -18,6 +19,9 @@ class AuthService {
   }
 
   Future<bool> isLoggedIn() async {
+    if(ApiClientService.getInstance().homeServerUrl == "") {
+      return false;
+    }
     return false;
   }
 

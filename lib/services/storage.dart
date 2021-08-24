@@ -15,14 +15,19 @@ class StorageService {
 
 
   add(String key, String value) {
+    print("Wring key '$key'");
     _storage.write(key: key, value: value);
   }
 
-  get(String key) async{
+  Future<dynamic> get(String key) async{
     return await _storage.read(key: key);
   }
 
   delete(String key) async{
     await _storage.delete(key: key);
+  }
+
+  Future<bool> exists(String key) async {
+    return await _storage.containsKey(key: key);
   }
 }

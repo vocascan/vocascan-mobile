@@ -25,6 +25,10 @@ class _SelectServerPageState extends State<SelectServerPage> {
   bool _serverValid = false;
   TextEditingController _serverUrlController = new TextEditingController();
 
+  _SelectServerPageState() {
+    _serverUrlController.text = ApiClientService.getInstance().homeServerUrl;
+}
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -66,25 +70,26 @@ class _SelectServerPageState extends State<SelectServerPage> {
   }
 
   void validateServer(String serverUrl) async{
-    try {
+    //try {
       ApiClientService.getInstance().setHomeServerUrl("https://$serverUrl");
-      final ApiResponse response = await ApiClientService.getInstance().request("info", new Object(), false, HTTPMethod.GET);
+      final ApiResponse response = await ApiClientService.getInstance().request("info", {}, false, HTTPMethod.GET);
       final Map jsonResponse = response.data;
 
       if(response.response.statusCode == 200 && jsonResponse.containsKey("identifier") && jsonResponse.containsKey("version") && jsonResponse["identifier"] == "vocascan-server" && supportedVersions.contains(jsonResponse["version"])) {
         setState(() {
           _serverValid = true;
-          StorageService.getInstance().add('server', _serverUrlController.text);
+          StorageService.getInstance().add('server', "https://$serverUrl"); // TODO
         });
       } else {
         setState(() {
           _serverValid = false;
         });
       }
-    } catch(_) {
+    /*} catch(e) {
+      print(e);
       setState(() {
         _serverValid = false;
       });
-    }
+    }*/
   }
 }
