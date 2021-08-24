@@ -20,6 +20,7 @@ class SelectServerPage extends StatefulWidget{
 
 class _SelectServerPageState extends State<SelectServerPage> {
   bool _serverValid = false;
+  String _serverVersion = "Loading...";
   TextEditingController _serverUrlController = new TextEditingController();
 
   @override
@@ -55,6 +56,23 @@ class _SelectServerPageState extends State<SelectServerPage> {
                 hintText: 'Server',
                 icon: Icons.cloud,
               ),
+
+              Row(
+                children: [
+                  TextFieldContainer(
+                    child: Text(
+                        "Server Version: $_serverVersion",
+                        textAlign: TextAlign.center
+                    ),
+                    decoration: BoxDecoration(),
+                  ),
+                  Icon(
+                    _serverValid ? Icons.check : Icons.close,
+                    color: _serverValid ? Colors.green : Colors.red,
+                  )
+                ],
+              ),
+
               RoundedButton(disabled: !_serverValid, text: 'Continue',
                 press: () {
                 return !_serverValid? null: widget.controller.animateToPage(widget.controller.page!.toInt() + 1,
@@ -84,23 +102,27 @@ class _SelectServerPageState extends State<SelectServerPage> {
 
       setState(() {
         _serverValid = true;
+        _serverVersion = "v${serverInfo.version}";
         StorageService.getInstance().add('server', serverUrl);
       });
 
-    } on EndpointInfoVersionNotSupported catch(_) {
+    } on EndpointInfoVersionNotSupported catch(e) {
       setState(() {
         _serverValid = false;
+        _serverVersion = e.serverVersion;
       });
-      // TODO Show Version to User
+
     } on EndpointInfoServerNotSupported catch(_) {
       setState(() {
         _serverValid = false;
+        _serverVersion = "Unknown";
       });
 
       // TODO Show Server to User
     } catch(_) {
       setState(() {
         _serverValid = false;
+        _serverVersion = "Unknown";
       });
     }
   }
