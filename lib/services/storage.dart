@@ -1,5 +1,4 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:vocascan_mobile/services/auth.dart';
 
 class StorageService {
   static StorageService? instance;
@@ -15,7 +14,6 @@ class StorageService {
 
 
   add(String key, String value) {
-    print("Wring key '$key'");
     _storage.write(key: key, value: value);
   }
 

@@ -25,9 +25,12 @@ class _SelectServerPageState extends State<SelectServerPage> {
   bool _serverValid = false;
   TextEditingController _serverUrlController = new TextEditingController();
 
-  _SelectServerPageState() {
+  @override
+  void initState() {
+    super.initState();
     _serverUrlController.text = ApiClientService.getInstance().homeServerUrl;
-}
+    this.validateServer(_serverUrlController.text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,26 +73,33 @@ class _SelectServerPageState extends State<SelectServerPage> {
   }
 
   void validateServer(String serverUrl) async{
-    //try {
-      ApiClientService.getInstance().setHomeServerUrl("https://$serverUrl");
+    if(!serverUrl.startsWith(new RegExp(r"http[s]?://"))) {
+      serverUrl = "https://$serverUrl";
+    }
+
+    if(serverUrl.endsWith("/")) {
+      serverUrl = serverUrl.substring(0, serverUrl.length - 2);
+    }
+
+    try {
+      ApiClientService.getInstance().setHomeServerUrl(serverUrl);
       final ApiResponse response = await ApiClientService.getInstance().request("info", {}, false, HTTPMethod.GET);
       final Map jsonResponse = response.data;
 
       if(response.response.statusCode == 200 && jsonResponse.containsKey("identifier") && jsonResponse.containsKey("version") && jsonResponse["identifier"] == "vocascan-server" && supportedVersions.contains(jsonResponse["version"])) {
         setState(() {
           _serverValid = true;
-          StorageService.getInstance().add('server', "https://$serverUrl"); // TODO
+          StorageService.getInstance().add('server', serverUrl); // TODO
         });
       } else {
         setState(() {
           _serverValid = false;
         });
       }
-    /*} catch(e) {
-      print(e);
+    } catch(e) {
       setState(() {
         _serverValid = false;
       });
-    }*/
+    }
   }
 }

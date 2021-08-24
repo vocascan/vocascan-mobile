@@ -7,17 +7,14 @@ import 'package:vocascan_mobile/services/auth.dart';
 import 'package:vocascan_mobile/services/storage.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // Important for Flutter Secure Storage
 
   String homeServerUrl = "";
-  var test = StorageService.getInstance();
-  print(test);
-  if(await test.exists("server")) {
-    print("exists");
-    homeServerUrl = await test.get("server");
-  } else {
-    print(":(");
-    homeServerUrl = "";
+
+  if(await StorageService.getInstance().exists("server")) {
+    homeServerUrl = await StorageService.getInstance().get("server");
   }
+
   // TODO Validate URL
   ApiClientService(homeServerUrl);
   AuthService();
