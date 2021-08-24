@@ -4,10 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:vocascan_mobile/constants/versions.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_button.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_input_field.dart';
 import 'package:vocascan_mobile/pages/widgets/text_field_container.dart';
 import 'package:http/http.dart';
+import 'package:vocascan_mobile/services/api_client.dart';
 import 'package:vocascan_mobile/services/storage.dart';
 
 
@@ -64,24 +66,22 @@ class _SelectServerPageState extends State<SelectServerPage> {
   }
 
   void validateServer(String serverUrl) async{
-    try{
-      serverUrl = "https://$serverUrl/api/info";
-      final response = await get(Uri.parse(serverUrl));
+    try {
+      ApiClientService.getInstance().setHomeServerUrl("https://$serverUrl");
+      final ApiResponse response = await ApiClientService.getInstance().request("info", new Object(), false, HTTPMethod.GET);
+      final Map jsonResponse = response.data;
 
-      setState(() {
-        if (response.statusCode == 200) {
-          final jsonResult = json.decode(response.body);
-          _serverValid = jsonResult.containsKey('identifier');
-
-          if (_serverValid){
-            StorageService.getInstance().add('server', _serverUrlController.text);
-          }
-        } else {
+      if(response.response.statusCode == 200 && jsonResponse.containsKey("identifier") && jsonResponse.containsKey("version") && jsonResponse["identifier"] == "vocascan-server" && supportedVersions.contains(jsonResponse["version"])) {
+        setState(() {
+          _serverValid = true;
+          StorageService.getInstance().add('server', _serverUrlController.text);
+        });
+      } else {
+        setState(() {
           _serverValid = false;
-        }
-      });
-    }
-    catch(_){
+        });
+      }
+    } catch(_) {
       setState(() {
         _serverValid = false;
       });
