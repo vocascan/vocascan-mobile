@@ -4,8 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_button.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_input_field.dart';
 import 'package:vocascan_mobile/pages/widgets/text_field_container.dart';
-import 'package:vocascan_mobile/services/auth.dart';
-import 'package:vocascan_mobile/services/storage.dart';
 
 class SelectPasswordPage extends StatefulWidget{
   @override

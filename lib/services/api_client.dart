@@ -1,6 +1,6 @@
-import 'package:http/http.dart';
 import 'dart:convert';
 
+import 'package:http/http.dart';
 import 'package:vocascan_mobile/api/schemes/endpoint_info.dart';
 import 'package:vocascan_mobile/constants/versions.dart';
 

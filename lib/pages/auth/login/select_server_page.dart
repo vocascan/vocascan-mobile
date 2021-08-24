@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -8,7 +6,6 @@ import 'package:vocascan_mobile/api/schemes/endpoint_info.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_button.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_input_field.dart';
 import 'package:vocascan_mobile/pages/widgets/text_field_container.dart';
-import 'package:http/http.dart';
 import 'package:vocascan_mobile/services/api_client.dart';
 import 'package:vocascan_mobile/services/storage.dart';
 
