@@ -22,10 +22,33 @@ class _SelectEmailPageState extends State<SelectEmailPage> {
 
   bool _isUsernameValid = false;
   bool _isEmailValid = false;
+  StorageService _storageService = StorageService.getInstance();
+
+  @override
+  initState() {
+    super.initState();
+    updateInputs();
+  }
+
+  updateInputs() async{
+    String? email = await _storageService.get("email");
+    String? username = await _storageService.get("username");
+
+    if (email != null){
+      validateEmail(email);
+      _mailController.text = email;
+    }
+
+    if(username != null){
+      validateUsername(username);
+      _usernameController.text = username;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Center(child: SingleChildScrollView(
         child: Column(
@@ -64,7 +87,7 @@ class _SelectEmailPageState extends State<SelectEmailPage> {
     setState(() {
       _isEmailValid = RegExp(emailPattern).hasMatch(email);
       if (_isEmailValid){
-        StorageService.getInstance().add('email', email);
+        _storageService.add('email', email);
       }
     });
   }
@@ -74,7 +97,7 @@ class _SelectEmailPageState extends State<SelectEmailPage> {
       _isUsernameValid = username.length >= 2
           && username.length <= 32;
       if (_isUsernameValid){
-        StorageService.getInstance().add('username', username);
+        _storageService.add('username', username);
       }
     });
   }
