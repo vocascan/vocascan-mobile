@@ -78,7 +78,7 @@ class _SelectPasswordPageState extends State<SelectPasswordPage> {
   }
 
 
-  signUp()async{
+  signUp() async {
     // TODO Signup
   }
 

@@ -1,6 +1,9 @@
 import 'package:http/http.dart';
 import 'dart:convert';
 
+import 'package:vocascan_mobile/api/schemes/endpoint_info.dart';
+import 'package:vocascan_mobile/constants/versions.dart';
+
 enum HTTPMethod {
   GET,
   POST,
@@ -62,6 +65,25 @@ class ApiClientService {
 
     responseData = json.decode(utf8.decode(response.body.codeUnits));
     return ApiResponse(response, responseData);
+  }
+
+  Future<EndpointInfoResponseScheme> endpointInfo() async {
+    final ApiResponse response = await ApiClientService.getInstance().request("info", {}, false, HTTPMethod.GET);
+
+    if((response.response.statusCode != 200)) {
+      throw EndpointInfoResponseNotCorrect(response.response.statusCode);
+    }
+    if(!response.data.containsKey("identifier") || !response.data.containsKey("version") || !response.data.containsKey("commitRef")) {
+      throw EndpointInfoResponseNotCorrect(response.response.statusCode, response.data.keys.toList());
+    }
+    if(!supportedVersions.contains(response.data["version"])) {
+      throw EndpointInfoVersionNotSupported(response.data["version"]);
+    }
+    if(response.data["identifier"] != "vocascan-server") {
+      throw EndpointInfoServerNotSupported(response.data["identifier"]);
+    }
+
+    return EndpointInfoResponseScheme(response.data["identifier"], response.data["version"], response.data["commitRef"]);
   }
 
 }

@@ -71,7 +71,7 @@ class _LoginPageSate extends State<LoginPage> {
     );
   }
 
-  login()async{
+  login() async {
     var snackBar = new SnackBar(content: Text('The login is currently not available!'),);
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
 

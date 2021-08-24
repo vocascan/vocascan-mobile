@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:vocascan_mobile/api/schemes/endpoint_info.dart';
 import 'package:vocascan_mobile/constants/versions.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_button.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_input_field.dart';
@@ -83,13 +84,12 @@ class _SelectServerPageState extends State<SelectServerPage> {
 
     try {
       ApiClientService.getInstance().setHomeServerUrl(serverUrl);
-      final ApiResponse response = await ApiClientService.getInstance().request("info", {}, false, HTTPMethod.GET);
-      final Map jsonResponse = response.data;
+      final EndpointInfoResponseScheme serverInfo = await ApiClientService.getInstance().endpointInfo();
 
-      if(response.response.statusCode == 200 && jsonResponse.containsKey("identifier") && jsonResponse.containsKey("version") && jsonResponse["identifier"] == "vocascan-server" && supportedVersions.contains(jsonResponse["version"])) {
+      if(serverInfo.identifier == "vocascan-server" && supportedVersions.contains(serverInfo.version)) {
         setState(() {
           _serverValid = true;
-          StorageService.getInstance().add('server', serverUrl); // TODO
+          StorageService.getInstance().add('server', serverUrl);
         });
       } else {
         setState(() {
