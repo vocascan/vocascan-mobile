@@ -35,11 +35,19 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons:
+  flutter_native_splash:
+
+
 
 flutter_icons:
   android: "launcher_icon"
   ios: true
   image_path: "assets/images/logos/launcher.png"
+
+flutter_native_splash:
+  background_image: "assets/images/logos/background.png"
+  image: "assets/images/logos/transparent-round.png"
+  web: false
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
