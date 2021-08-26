@@ -76,9 +76,6 @@ class _SelectPasswordPageState extends State<SelectPasswordPage> {
     });
   }
 
-
   signUp()async{
-    print(await StorageService.getInstance().get("server"));
   }
-
 }
