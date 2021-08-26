@@ -12,7 +12,7 @@ class StorageService {
     return instance ?? StorageService();
   }
 
-  add(String key, String value) {
+  void add(String key, String value) {
     _storage.write(key: key, value: value);
   }
 
