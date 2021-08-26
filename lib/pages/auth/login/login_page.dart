@@ -15,6 +15,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageSate extends State<LoginPage> {
   TextEditingController _mailController = new TextEditingController();
   TextEditingController _passwordController = new TextEditingController();
+  AuthService _authService = AuthService.getInstance();
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +83,7 @@ class _LoginPageSate extends State<LoginPage> {
     // TODO: check if var is valid (@ in mail ...)
 
 
-    var result = await AuthService.getInstance().loginUser(mail, password);
+    var result = await _authService.loginUser(mail, password);
     // TODO: Handle result
   }
 }
