@@ -72,7 +72,7 @@ class _LoginPageSate extends State<LoginPage> {
     );
   }
 
-  login()async{
+  login() async{
     var snackBar = new SnackBar(content: Text('The login is currently not available!'),);
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
@@ -80,10 +80,7 @@ class _LoginPageSate extends State<LoginPage> {
 
     var mail = _mailController.value;
     var password = _passwordController.value;
-    // TODO: check if var is valid (@ in mail ...)
-
 
     var result = await _authService.loginUser(mail, password);
-    // TODO: Handle result
   }
 }
