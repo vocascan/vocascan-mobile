@@ -22,11 +22,12 @@ class _SelectServerPageState extends State<SelectServerPage> {
   bool _serverValid = false;
   String _serverVersion = "Loading...";
   TextEditingController _serverUrlController = new TextEditingController();
+  ApiClientService _apiClientService = ApiClientService.getInstance();
 
   @override
   void initState() {
     super.initState();
-    _serverUrlController.text = ApiClientService.getInstance().homeServerUrl;
+    _serverUrlController.text = _apiClientService.homeServerUrl;
     this.validateServer(_serverUrlController.text);
   }
 
@@ -97,8 +98,8 @@ class _SelectServerPageState extends State<SelectServerPage> {
     }
 
     try {
-      ApiClientService.getInstance().setHomeServerUrl(serverUrl);
-      final EndpointInfoResponseScheme serverInfo = await ApiClientService.getInstance().endpointInfo();
+      _apiClientService.setHomeServerUrl(serverUrl);
+      final EndpointInfoResponseScheme serverInfo = await  _apiClientService.endpointInfo();
 
       setState(() {
         _serverValid = true;

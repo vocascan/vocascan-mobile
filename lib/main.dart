@@ -9,14 +9,15 @@ import 'package:vocascan_mobile/services/storage.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Important for Flutter Secure Storage
 
-  String homeServerUrl = "";
+  String _homeServerUrl = "";
+  StorageService _storageServer = StorageService.getInstance();
 
-  if(await StorageService.getInstance().exists("server")) {
-    homeServerUrl = (await StorageService.getInstance().get("server"))!;
+  if(await _storageServer.exists("server")) {
+    _homeServerUrl = (await _storageServer.get("server"))!;
   }
 
   // TODO Validate URL
-  ApiClientService(homeServerUrl);
+  ApiClientService(_homeServerUrl);
   AuthService();
 
   Widget _defaultHome = new AuthPage();
