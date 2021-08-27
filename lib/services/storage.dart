@@ -23,4 +23,8 @@ class StorageService {
   Future<String?> delete(String key) async{
     await _storage.delete(key: key);
   }
+
+  Future<bool> exists(String key) async {
+    return await _storage.containsKey(key: key);
+  }
 }
