@@ -25,10 +25,12 @@ class _SelectPasswordPageState extends State<SelectPasswordPage> {
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                SvgPicture.asset(
-                  "assets/images/illustrations/undraw_my_password.svg",
+                SizedBox(
                   height: size.height * 0.3,
                   width: size.height * 0.25,
+                  child: SvgPicture.asset(
+                    "assets/images/illustrations/undraw_my_password.svg",
+                  ),
                 ),
                 TextFieldContainer(
                   child: Text("Use a strong Password to secure your data",

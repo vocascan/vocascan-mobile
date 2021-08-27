@@ -36,10 +36,12 @@ class _SelectEmailPageState extends State<SelectEmailPage> {
       body: Center(child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            SvgPicture.asset(
-              "assets/images/illustrations/undraw_Mention.svg",
+            SizedBox(
               height: size.height * 0.3,
               width: size.height * 0.25,
+              child: SvgPicture.asset(
+                "assets/images/illustrations/undraw_Mention.svg",
+              ),
             ),
             TextFieldContainer(
               child: Text("Please specify your email and username",

@@ -53,11 +53,14 @@ class _SelectServerPageState extends State<SelectServerPage> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              SvgPicture.asset(
-                "assets/images/illustrations/undraw_upload.svg",
+              SizedBox(
                 height: size.height * 0.25,
                 width: size.height * 0.25,
+                child: SvgPicture.asset(
+                  "assets/images/illustrations/undraw_upload.svg",
+                )
               ),
+
               TextFieldContainer(child: Text("Select your server for synchronization",
                 textAlign: TextAlign.center,),
                 decoration: BoxDecoration()

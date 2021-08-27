@@ -26,10 +26,9 @@ class _LoginPageSate extends State<LoginPage> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SvgPicture.asset(
-                  "assets/images/logos/cloud.svg",
-                  height: size.height * 0.25,
-                ),
+                 SvgPicture.asset(
+                    "assets/images/logos/cloud.svg",
+                  ),
                 RoundedInputField(
                   controller: _mailController,
                   hintText: 'Email',
