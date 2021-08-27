@@ -25,8 +25,6 @@ class _SelectServerPageState extends State<SelectServerPage> {
   StorageService _storageService = StorageService.getInstance();
   ApiClientService _apiClientService = ApiClientService.getInstance();
 
-  String _serverVersion = "Loading...";
-
   @override
   void initState() {
     super.initState();
@@ -73,21 +71,6 @@ class _SelectServerPageState extends State<SelectServerPage> {
                 hintText: 'Server',
                 icon: Icons.cloud,
               ),
-              Row(
-                children: [
-                  TextFieldContainer(
-                    child: Text(
-                        "Server Version: $_serverVersion",
-                        textAlign: TextAlign.center
-                    ),
-                    decoration: BoxDecoration(),
-                  ),
-                  Icon(
-                    _serverValid ? Icons.check : Icons.close,
-                    color: _serverValid ? Colors.green : Colors.red,
-                  )
-                ],
-              ),
               RoundedButton(disabled: !_serverValid, text: 'Continue',
                 press: () {
                 return !_serverValid? null: widget.controller.animateToPage(widget.controller.page!.toInt() + 1,
@@ -108,34 +91,20 @@ class _SelectServerPageState extends State<SelectServerPage> {
     }
 
     if(serverUrl.endsWith("/")) {
-      serverUrl = serverUrl.substring(0, serverUrl.length - 2);
+      serverUrl = serverUrl.substring(0, serverUrl.length - 1);
     }
 
     try {
       _apiClientService.setHomeServerUrl(serverUrl);
-      final EndpointInfoResponseScheme serverInfo = await _apiClientService.endpointInfo();
+      await _apiClientService.endpointInfo();
 
       setState(() {
         _serverValid = true;
-        _serverVersion = "v${serverInfo.version}";
         _storageService.add('server', serverUrl);
-      });
-
-    } on EndpointInfoVersionNotSupported catch(e) {
-      setState(() {
-        _serverValid = false;
-        _serverVersion = e.serverVersion;
-      });
-
-    } on EndpointInfoServerNotSupported catch(_) {
-      setState(() {
-        _serverValid = false;
-        _serverVersion = "Unknown";
       });
     } catch(_) {
       setState(() {
         _serverValid = false;
-        _serverVersion = "Unknown";
       });
     }
   }
