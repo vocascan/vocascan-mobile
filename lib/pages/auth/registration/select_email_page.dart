@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:vocascan_mobile/constants/values.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_button.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_input_field.dart';
 import 'package:vocascan_mobile/pages/widgets/text_field_container.dart';
@@ -25,22 +26,6 @@ class _SelectEmailPageState extends State<SelectEmailPage> {
   @override
   initState() {
     super.initState();
-    updateInputs();
-  }
-
-  updateInputs() async{
-    String? email = await _storageService.get("email");
-    String? username = await _storageService.get("username");
-
-    if (email != null){
-      validateEmail(email);
-      _mailController.text = email;
-    }
-
-    if(username != null){
-      validateUsername(username);
-      _usernameController.text = username;
-    }
   }
 
   @override
@@ -81,9 +66,8 @@ class _SelectEmailPageState extends State<SelectEmailPage> {
   }
 
   validateEmail(String email){
-    String emailPattern = r"^\S+@\S+.\S+$";
     setState(() {
-      _isEmailValid = RegExp(emailPattern).hasMatch(email);
+      _isEmailValid = RegExp(emailRegex).hasMatch(email);
       if (_isEmailValid){
         _storageService.add('email', email);
       }
