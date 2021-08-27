@@ -2,19 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:vocascan_mobile/pages/auth/login/auth_page.dart';
 import 'package:vocascan_mobile/pages/auth/registration/sign_up_page.dart';
 import 'package:vocascan_mobile/pages/home/home_page.dart';
+import 'package:vocascan_mobile/services/api_client.dart';
 import 'package:vocascan_mobile/services/auth.dart';
+import 'package:vocascan_mobile/services/storage.dart';
 
 Future<void> main() async {
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-  AuthService();
-  // TODO api
-  Widget _defaultHome = new AuthPage();
+  WidgetsFlutterBinding.ensureInitialized(); // Important for Flutter Secure Storage
 
-  if (await AuthService.getInstance().isLoggedIn()){
-    _defaultHome = HomePage();
+  AuthService _authService = AuthService.getInstance();
+  StorageService _storageService = StorageService.getInstance();
+
+  String homeServer = "";
+  if(await _storageService.exists("server")) {
+    homeServer = (await _storageService.get("server"))!;
   }
 
-  final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
+  ApiClientService(homeServer);
+
+  Widget _defaultHome = AuthPage();
+
+  if (await _authService.isLoggedIn()){
+    _defaultHome = HomePage();
+  }
 
   runApp(MaterialApp(
     title: 'Vocascan',
