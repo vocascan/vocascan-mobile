@@ -39,6 +39,13 @@ class _SelectServerPageState extends State<SelectServerPage> {
    }
 
   @override
+  void setState(fn) {
+    if(mounted) {
+      super.setState(fn);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
