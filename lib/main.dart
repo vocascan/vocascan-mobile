@@ -8,7 +8,6 @@ import 'package:vocascan_mobile/services/storage.dart';
 import 'mapper.g.dart' as mapper;
 
 Future<void> main() async {
-  mapper.init();
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   WidgetsFlutterBinding.ensureInitialized(); // Important for Flutter Secure Storage
@@ -22,6 +21,7 @@ Future<void> main() async {
   }
 
   ApiClientService(homeServer);
+  mapper.init();
 
   Widget _defaultHome = AuthPage();
 
