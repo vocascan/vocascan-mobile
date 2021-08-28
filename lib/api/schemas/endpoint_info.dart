@@ -1,26 +1,11 @@
-class EndpointInfoResponseScheme {
+class EndpointInfo<T> {
   final String identifier;
   final String version;
   final String? commitRef;
 
-  EndpointInfoResponseScheme(this.identifier, this.version, this.commitRef);
-}
+  EndpointInfo(this.identifier, this.version, this.commitRef);
 
-class EndpointInfoResponseNotCorrect implements Exception {
-  final int statusCode;
-  final List<dynamic>? keys;
-
-  EndpointInfoResponseNotCorrect(this.statusCode, [this.keys]);
-}
-
-class EndpointInfoVersionNotSupported implements Exception {
-  final String serverVersion;
-
-  EndpointInfoVersionNotSupported(this.serverVersion);
-}
-
-class EndpointInfoServerNotSupported implements Exception {
-  final String serverIdentifier;
-
-  EndpointInfoServerNotSupported(this.serverIdentifier);
+  factory EndpointInfo.fromJSON(dynamic json){
+    return EndpointInfo(json['identifier'], json['version'], json['commitREf']);
+  }
 }

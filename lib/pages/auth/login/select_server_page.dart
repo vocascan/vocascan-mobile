@@ -29,7 +29,6 @@ class _SelectServerPageState extends State<SelectServerPage> {
   void initState() {
     super.initState();
     String homeServer = _apiClientService.homeServer;
-    // Hide the protocol from the user
     homeServer = homeServer.replaceAll(RegExp(httpRegex), "");
 
     _serverUrlController.text = homeServer;
@@ -96,13 +95,14 @@ class _SelectServerPageState extends State<SelectServerPage> {
 
     try {
       _apiClientService.setHomeServerUrl(serverUrl);
-      await _apiClientService.endpointInfo();
+      EndpointInfo endpointInfo = EndpointInfo.fromJSON(await _apiClientService.endpointGet("info"));
 
       setState(() {
         _serverValid = true;
         _storageService.add('server', serverUrl);
       });
     } catch(_) {
+      print(_);
       setState(() {
         _serverValid = false;
       });
