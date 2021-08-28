@@ -1,19 +1,5 @@
-
-import 'dart:convert';
-
 import 'package:http/http.dart';
 import 'package:simple_json_mapper/simple_json_mapper.dart';
-import 'package:vocascan_mobile/api/schemas/endpoint_info.dart';
-import 'package:vocascan_mobile/api/schemas/endpoint_register.dart';
-
-enum HTTPMethod {
-  GET,
-  POST,
-  DELETE,
-  PUT,
-  PATCH
-}
-
 
 class ApiResponse {
   final Response response;
@@ -26,6 +12,7 @@ class ApiClientService<T>{
   String homeServer = "";
   static ApiClientService? instance;
 
+
   ApiClientService(this.homeServer){
     instance = this;
   }
@@ -35,13 +22,15 @@ class ApiClientService<T>{
   }
 
   void setHomeServerUrl(String homeServerUrl) {
-    this.homeServer = homeServerUrl;
+    this.homeServer = homeServerUrl + "/api/";
   }
 
-  dynamic endpointGet(String endpoint) async {
-    Uri url = Uri.parse(this.homeServer + "/api/" + endpoint);
+   Future<T?> endpointGet<T>(String endpoint) async {
+    Uri url = Uri.parse(this.homeServer + endpoint);
     Response response = await get(url);
 
-    return jsonDecode(response.body);
+    final result = JsonMapper.deserialize<T>(response.body);
+
+    return result;
   }
 }

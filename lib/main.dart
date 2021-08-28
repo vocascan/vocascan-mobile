@@ -5,8 +5,10 @@ import 'package:vocascan_mobile/pages/home/home_page.dart';
 import 'package:vocascan_mobile/services/api_client.dart';
 import 'package:vocascan_mobile/services/auth.dart';
 import 'package:vocascan_mobile/services/storage.dart';
+import 'mapper.g.dart' as mapper;
 
 Future<void> main() async {
+  mapper.init();
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   WidgetsFlutterBinding.ensureInitialized(); // Important for Flutter Secure Storage

@@ -1,11 +1,11 @@
-class EndpointInfo<T> {
+
+import 'package:simple_json_mapper/simple_json_mapper.dart';
+
+@JObj()
+class EndpointInfo{
   final String identifier;
   final String version;
   final String? commitRef;
 
-  EndpointInfo(this.identifier, this.version, this.commitRef);
-
-  factory EndpointInfo.fromJSON(dynamic json){
-    return EndpointInfo(json['identifier'], json['version'], json['commitREf']);
-  }
+  const EndpointInfo({required this.identifier, required this.version, this.commitRef});
 }

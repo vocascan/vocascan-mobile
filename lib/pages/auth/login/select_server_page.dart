@@ -95,14 +95,13 @@ class _SelectServerPageState extends State<SelectServerPage> {
 
     try {
       _apiClientService.setHomeServerUrl(serverUrl);
-      EndpointInfo endpointInfo = EndpointInfo.fromJSON(await _apiClientService.endpointGet("info"));
+      EndpointInfo? endpointInfo = await _apiClientService.endpointGet<EndpointInfo>("info");
 
       setState(() {
         _serverValid = true;
         _storageService.add('server', serverUrl);
       });
     } catch(_) {
-      print(_);
       setState(() {
         _serverValid = false;
       });
