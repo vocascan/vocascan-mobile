@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:vocascan_mobile/api/schemas/endpoint_register.dart';
 import 'package:vocascan_mobile/constants/values.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_button.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_input_field.dart';
 import 'package:vocascan_mobile/pages/widgets/text_field_container.dart';
+import 'package:vocascan_mobile/services/api_client.dart';
 import 'package:vocascan_mobile/services/storage.dart';
 
 class SelectPasswordPage extends StatefulWidget{
@@ -15,6 +17,9 @@ class SelectPasswordPage extends StatefulWidget{
 class _SelectPasswordPageState extends State<SelectPasswordPage> {
   TextEditingController _passwordController = new TextEditingController();
   TextEditingController _passwordRepeatController = new TextEditingController();
+  ApiClientService _apiClientService = ApiClientService.getInstance();
+  StorageService _storageService = StorageService.getInstance();
+  
   bool _passwordValid = true;
 
   @override
@@ -78,6 +83,18 @@ class _SelectPasswordPageState extends State<SelectPasswordPage> {
     });
   }
 
-  signUp()async{
+  signUp() async{
+    try{
+      Map data = {
+        "email": await _storageService.get("email"),
+        "password": _passwordController.text,
+        "username": await _storageService.get("username")
+      };
+
+      EndpointRegister? result = await _apiClientService.endpointPost<EndpointRegister>("user/register", data);
+    }
+    catch(_){
+      print(_);
+    }
   }
 }
