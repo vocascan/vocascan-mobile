@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:vocascan_mobile/constants/values.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_button.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_input_field.dart';
 import 'package:vocascan_mobile/pages/widgets/text_field_container.dart';
@@ -66,11 +67,10 @@ class _SelectPasswordPageState extends State<SelectPasswordPage> {
   }
 
   validatePassword()async{
+    RegExp regExp = RegExp(securePasswordRegex);
+
     var password = _passwordController.text;
     var passwordRepeat = _passwordRepeatController.text;
-
-    String  securePasswordPattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
-    RegExp regExp = RegExp(securePasswordPattern);
 
     setState(() {
       _passwordValid = !(password == passwordRepeat
