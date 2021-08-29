@@ -107,6 +107,9 @@ class _SelectPasswordPageState extends State<SelectPasswordPage> {
         switch(endpoint.statusCode){
           case 409:
             _errorMessage = "Sorry the selected email is already used";
+            break;
+          default:
+            _errorMessage = "An unknown error has occurred try again later";
         }
     }
     on SocketException catch(_){

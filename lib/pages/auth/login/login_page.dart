@@ -19,9 +19,7 @@ class _LoginPageSate extends State<LoginPage> {
   TextEditingController _passwordController = TextEditingController();
 
   AuthService _authService = AuthService.getInstance();
-
   String _errorMessage = "";
-  bool _errorMessageVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -93,8 +91,8 @@ class _LoginPageSate extends State<LoginPage> {
           case 401:
             _errorMessage = "Hello it seems that the password or the email was incorrect";
             break;
-          case 400:
-            break;
+          default:
+            _errorMessage = "An unknown error has occurred try again later";
         }
       });
     }
