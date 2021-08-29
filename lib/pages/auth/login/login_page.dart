@@ -1,7 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:vocascan_mobile/exceptions/response_note_correct.dart';
 import 'package:vocascan_mobile/pages/auth/registration/sign_up_page.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_button.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_input_field.dart';
@@ -13,14 +15,16 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageSate extends State<LoginPage> {
-  TextEditingController _mailController = new TextEditingController();
-  TextEditingController _passwordController = new TextEditingController();
+  TextEditingController _mailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
   AuthService _authService = AuthService.getInstance();
+
+  String _errorMessage = "";
+  bool _errorMessageVisible = false;
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     return Scaffold(
         body: Center(
           child: SingleChildScrollView(
@@ -72,14 +76,43 @@ class _LoginPageSate extends State<LoginPage> {
   }
 
   login() async{
-    var snackBar = new SnackBar(content: Text('The login is currently not available!'),);
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    var email = _mailController.text;
+    var password = _passwordController.text;
+    bool loginSuccessfully = false;
 
-    Navigator.of(context).pushReplacementNamed("/home");
+    try{
+      loginSuccessfully = await _authService.loginUser(email, password);
 
-    var mail = _mailController.value;
-    var password = _passwordController.value;
+      if (loginSuccessfully){
+        Navigator.of(context).pushReplacementNamed("/home");
+      }
+    }
+    on EndpointResponseNotCorrect catch (endpoint){
+      setState(() {
+        switch (endpoint.statusCode){
+          case 401:
+            _errorMessage = "Hello it seems that the password or the email was incorrect";
+            break;
+          case 400:
+            break;
+        }
+      });
+    }
+    on SocketException catch(_){
+      _errorMessage = "It seems that I have no connection to the Internet";
+    }
+    catch (_){
+      _errorMessage = "An unknown error has occurred try again later";
+    }
 
-    var result = await _authService.loginUser(mail, password);
+    if (!loginSuccessfully){
+      final snackBar = SnackBar(backgroundColor: Colors.red, content: Text(_errorMessage),
+        action:  SnackBarAction(textColor: Colors.white,
+        label: "Dismiss" ,
+          onPressed: () {
+            return null;
+            },),);
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 }
