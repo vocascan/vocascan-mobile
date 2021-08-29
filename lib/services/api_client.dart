@@ -8,6 +8,11 @@ class ApiClientService<T>{
   String homeServer = "";
   static ApiClientService? instance;
 
+  Map<String, String> _headers = {
+    "accept": "application/json",
+    "Content-Type": "application/json"
+  };
+
 
   ApiClientService(this.homeServer){
     instance = this;
@@ -23,7 +28,7 @@ class ApiClientService<T>{
 
    Future<T?> endpointGet<T>(String endpoint) async {
     Uri url = Uri.parse(this.homeServer + endpoint);
-    Response response = await get(url);
+    Response response = await get(url, headers: _headers);
 
     final result = JsonMapper.deserialize<T>(response.body);
 
@@ -31,13 +36,9 @@ class ApiClientService<T>{
   }
 
   Future<T?> endpointPost<T>(String endpoint, Map data) async {
-    Map<String, String> headers = {
-      "accept": "application/json",
-      "Content-Type": "application/json"
-    };
 
     Uri url = Uri.parse(this.homeServer + endpoint);
-    Response response = await post(url,headers: headers,  body: utf8.encode(json.encode(data)));
+    Response response = await post(url,headers: _headers,  body: utf8.encode(json.encode(data)));
 
     if(response.statusCode != 200){
       throw EndpointResponseNotCorrect(response.statusCode);
