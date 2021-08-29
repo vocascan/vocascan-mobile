@@ -4,13 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:vocascan_mobile/api/schemas/endpoint_register.dart';
 import 'package:vocascan_mobile/constants/values.dart';
 import 'package:vocascan_mobile/exceptions/response_note_correct.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_button.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_input_field.dart';
 import 'package:vocascan_mobile/pages/widgets/text_field_container.dart';
-import 'package:vocascan_mobile/services/api_client.dart';
+import 'package:vocascan_mobile/services/auth.dart';
 import 'package:vocascan_mobile/services/storage.dart';
 
 class SelectPasswordPage extends StatefulWidget{
@@ -22,12 +21,13 @@ class SelectPasswordPage extends StatefulWidget{
 class _SelectPasswordPageState extends State<SelectPasswordPage> {
   TextEditingController _passwordController = new TextEditingController();
   TextEditingController _passwordRepeatController = new TextEditingController();
-  ApiClientService _apiClientService = ApiClientService.getInstance();
+
+  AuthService _authService = AuthService.getInstance();
   StorageService _storageService = StorageService.getInstance();
 
   String _errorMessage = "";
   bool _passwordValid = true;
-  bool _errorMessageVisible = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -68,13 +68,6 @@ class _SelectPasswordPageState extends State<SelectPasswordPage> {
                     validatePassword();
                   },
                 ),
-                Visibility(child:
-                  TextFieldContainer(decoration: BoxDecoration(),
-                    child: Text(_errorMessage,
-                      style: TextStyle(color: Colors.red),
-                      textAlign: TextAlign.center),
-                  ),
-                visible: _errorMessageVisible,),
                 RoundedButton(text: 'Finish', disabled: _passwordValid, press: () {
                   return _passwordValid ? null : signUp();
                 },)
@@ -98,40 +91,39 @@ class _SelectPasswordPageState extends State<SelectPasswordPage> {
   }
 
   signUp() async{
-    try{
-      Map data = {
-        "email": await _storageService.get("email"),
-        "password": _passwordController.text,
-        "username": await _storageService.get("username")
-      };
+    bool sinUpSuccessfully = false;
 
-      EndpointRegister? result = await _apiClientService.endpointPost<EndpointRegister>("user/register", data);
-      
-      if (result != null){
+    try{
+      String? email = await _storageService.get("email");
+      String? username = await _storageService.get("username");
+
+      sinUpSuccessfully = await _authService.signupUser(username, email, _passwordController.text);
+
+      if (sinUpSuccessfully){
         Navigator.of(context).pushReplacementNamed("/home");
       }
     }
     on EndpointResponseNotCorrect catch (endpoint){
-      setState(() {
         switch(endpoint.statusCode){
           case 409:
             _errorMessage = "Sorry the selected email is already used";
         }
-        _errorMessageVisible = true;
-      });
     }
     on SocketException catch(_){
-      setState(() {
         _errorMessage = "It seems that I have no connection to the Internet";
-        _errorMessageVisible = true;
-      });
-
     }
     catch (exception){
-      setState(() {
         _errorMessage = "An unknown error has occurred try again later";
-        _errorMessageVisible = true;
-      });
+    }
+
+    if (!sinUpSuccessfully){
+      final snackBar = SnackBar(backgroundColor: Colors.red,
+        content: Text(_errorMessage), action:  SnackBarAction(textColor: Colors.white,
+          label: "Dismiss" ,
+          onPressed: () {
+            return null;
+          },),);
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
 }
