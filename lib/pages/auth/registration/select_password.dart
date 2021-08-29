@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:vocascan_mobile/api/schemas/endpoint_register.dart';
 import 'package:vocascan_mobile/constants/values.dart';
+import 'package:vocascan_mobile/exceptions/response_note_correct.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_button.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_input_field.dart';
 import 'package:vocascan_mobile/pages/widgets/text_field_container.dart';
@@ -10,6 +14,7 @@ import 'package:vocascan_mobile/services/api_client.dart';
 import 'package:vocascan_mobile/services/storage.dart';
 
 class SelectPasswordPage extends StatefulWidget{
+
   @override
   _SelectPasswordPageState createState() => _SelectPasswordPageState();
 }
@@ -19,8 +24,10 @@ class _SelectPasswordPageState extends State<SelectPasswordPage> {
   TextEditingController _passwordRepeatController = new TextEditingController();
   ApiClientService _apiClientService = ApiClientService.getInstance();
   StorageService _storageService = StorageService.getInstance();
-  
+
+  String _errorMessage = "";
   bool _passwordValid = true;
+  bool _errorMessageVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +68,13 @@ class _SelectPasswordPageState extends State<SelectPasswordPage> {
                     validatePassword();
                   },
                 ),
+                Visibility(child:
+                  TextFieldContainer(decoration: BoxDecoration(),
+                    child: Text(_errorMessage,
+                      style: TextStyle(color: Colors.red),
+                      textAlign: TextAlign.center),
+                  ),
+                visible: _errorMessageVisible,),
                 RoundedButton(text: 'Finish', disabled: _passwordValid, press: () {
                   return _passwordValid ? null : signUp();
                 },)
@@ -92,9 +106,32 @@ class _SelectPasswordPageState extends State<SelectPasswordPage> {
       };
 
       EndpointRegister? result = await _apiClientService.endpointPost<EndpointRegister>("user/register", data);
+      
+      if (result != null){
+        Navigator.of(context).pushReplacementNamed("/home");
+      }
     }
-    catch(_){
-      print(_);
+    on EndpointResponseNotCorrect catch (endpoint){
+      setState(() {
+        switch(endpoint.statusCode){
+          case 409:
+            _errorMessage = "Sorry the selected email is already used";
+        }
+        _errorMessageVisible = true;
+      });
+    }
+    on SocketException catch(_){
+      setState(() {
+        _errorMessage = "It seems that I have no connection to the Internet";
+        _errorMessageVisible = true;
+      });
+
+    }
+    catch (exception){
+      setState(() {
+        _errorMessage = "An unknown error has occurred try again later";
+        _errorMessageVisible = true;
+      });
     }
   }
 }
