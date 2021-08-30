@@ -17,5 +17,6 @@
   "specify_email": "Bitte geben Sie Ihre E-Mail und Ihren Benutzernamen an",
   "strong_password": "Bitte verwenden Sie ein sicheres Passwort um ihre Daten zu schützen",
   "confirm_password": "Passwort Bestätigen",
-  "finish": "Abschließen"
+  "finish": "Abschließen",
+  "settings": "Einstellungen"
 }

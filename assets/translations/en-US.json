@@ -17,5 +17,6 @@
   "specify_email": "Please enter your email and username",
   "strong_password": "Please use a secure password to protect your data",
   "confirm_password": "Confirm password",
-  "finish": "Finish"
+  "finish": "Finish",
+  "settings": "Settings"
 }
