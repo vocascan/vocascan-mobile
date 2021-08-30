@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:vocascan_mobile/api/schemas/endpoint_login.dart';
 import 'package:vocascan_mobile/api/schemas/endpoint_register.dart';
@@ -26,7 +28,9 @@ class AuthService {
   }
 
   Future<bool> isLoggedIn() async {
-    return await _storageService.get("apiResult") != null;
+    Map<String, dynamic> apiResult = jsonDecode((await _storageService.get("apiResult"))!);
+
+    return apiResult.containsKey("user");
   }
 
   Future<bool> loginUser(email, password) async {
