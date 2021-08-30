@@ -28,9 +28,13 @@ class AuthService {
   }
 
   Future<bool> isLoggedIn() async {
-    Map<String, dynamic> apiResult = jsonDecode((await _storageService.get("apiResult"))!);
+    String? jsonResult = await _storageService.get("apiResult");
 
-    return apiResult.containsKey("user");
+    if (jsonResult != null){
+      return jsonDecode(jsonResult).containsKey("user");
+    }
+
+    return false;
   }
 
   Future<bool> loginUser(email, password) async {
