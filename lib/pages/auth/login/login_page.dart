@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:vocascan_mobile/constants/values.dart';
 import 'package:vocascan_mobile/exceptions/response_note_correct.dart';
 import 'package:vocascan_mobile/pages/auth/registration/sign_up_page.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_button.dart';
@@ -15,11 +16,14 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageSate extends State<LoginPage> {
-  TextEditingController _mailController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
   AuthService _authService = AuthService.getInstance();
   String _errorMessage = "";
+
+  bool _isEmailValid = false;
+  bool _isPasswordValid = false;
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +36,24 @@ class _LoginPageSate extends State<LoginPage> {
                     "assets/images/logos/cloud.svg",
                   ),
                 RoundedInputField(
-                  controller: _mailController,
+                  controller: _emailController,
                   hintText: 'Email',
-                  onChanged: (String value) {},
+                  onChanged: (String value) {
+                    setState(() {
+                      _isEmailValid = RegExp(emailRegex)
+                          .hasMatch(_emailController.text);
+                    });
+                  },
                 ),
                 RoundedInputField(
                   hintText: 'Password',
                   controller: _passwordController,
-                  onChanged: (String value) {},
+                  onChanged: (String value) {
+                    setState(() {
+                      _isPasswordValid =
+                          _passwordController.text.isNotEmpty;
+                    });
+                  },
                   obscureText: true,
                   icon: Icons.password,
                 ),
@@ -47,8 +61,8 @@ class _LoginPageSate extends State<LoginPage> {
                     child: TextButton(onPressed: (){},
                         child: Text("Forgot Password?"))
                 ),
-                RoundedButton(press: () {
-                  login();
+                RoundedButton(disabled: !(_isEmailValid && _isPasswordValid), press: () {
+                  return !(_isEmailValid && _isPasswordValid)? null: login();
                 },
                     text: 'LOGIN',
                 ),
@@ -74,7 +88,7 @@ class _LoginPageSate extends State<LoginPage> {
   }
 
   login() async{
-    var email = _mailController.text;
+    var email = _emailController.text;
     var password = _passwordController.text;
     bool loginSuccessfully = false;
 
@@ -89,6 +103,7 @@ class _LoginPageSate extends State<LoginPage> {
       setState(() {
         switch (endpoint.statusCode){
           case 401:
+          case 404:
             _errorMessage = "Hello it seems that the password or the email was incorrect";
             break;
           default:
