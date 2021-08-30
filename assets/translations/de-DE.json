@@ -1,5 +1,5 @@
 {
-  "wrong_password":"Das eingegebene Passwort oder die E-Mail sind falsch",
+  "wrong_password":"Das eingegebene Passwort oder die E-Mail ist falsch",
   "continue": "Weiter",
   "select_server": "Wählen Sie Ihren Server für die Synchronisierung aus",
   "password": "Passwort",
