@@ -14,14 +14,15 @@ Future<void> main() async {
 
   AuthService _authService = AuthService.getInstance();
   StorageService _storageService = StorageService.getInstance();
+  mapper.init();
 
   String homeServer = "";
+
   if(await _storageService.exists("server")) {
     homeServer = (await _storageService.get("server"))!;
   }
 
   ApiClientService(homeServer);
-  mapper.init();
 
   Widget _defaultHome = AuthPage();
 
