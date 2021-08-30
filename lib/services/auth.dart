@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:vocascan_mobile/api/schemas/endpoint_login.dart';
 import 'package:vocascan_mobile/api/schemas/endpoint_register.dart';
+import 'package:vocascan_mobile/services/storage.dart';
 
 import 'api_client.dart';
 
 class AuthService {
   // static instance
   static AuthService? instance;
+
   static ApiClientService _apiClientService = ApiClientService.getInstance();
+  StorageService _storageService = StorageService.getInstance();
 
   // will never be null, but the key is generated
   // in the main.dart after class init
@@ -23,7 +26,7 @@ class AuthService {
   }
 
   Future<bool> isLoggedIn() async {
-    return false;
+    return await _storageService.get("apiResult") != null;
   }
 
   Future<bool> loginUser(email, password) async {
@@ -32,9 +35,9 @@ class AuthService {
       "password": password,
     };
 
-    EndpointLogin? result = await _apiClientService.endpointPost<EndpointLogin>("user/login", data);
+    EndpointLogin? endpointLogin = await _apiClientService.endpointPost<EndpointLogin>("user/login", data);
 
-    return result != null;
+    return endpointLogin != null;
   }
 
   Future<bool> signupUser(username, email, password) async {
@@ -45,8 +48,8 @@ class AuthService {
       "username": username
     };
 
-    EndpointRegister? result = await _apiClientService.endpointPost<EndpointRegister>("user/register", data);
+    EndpointRegister? endpointRegister = await _apiClientService.endpointPost<EndpointRegister>("user/register", data);
 
-    return result != null;
+    return endpointRegister != null;
   }
 }

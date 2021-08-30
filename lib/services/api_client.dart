@@ -3,11 +3,13 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:simple_json_mapper/simple_json_mapper.dart';
 import 'package:vocascan_mobile/exceptions/response_note_correct.dart';
+import 'package:vocascan_mobile/services/storage.dart';
 
 class ApiClientService<T>{
   String homeServer = "";
   static ApiClientService? instance;
 
+  StorageService _storageService = StorageService.getInstance();
   Map<String, String> _headers = {
     "accept": "application/json",
     "Content-Type": "application/json"
@@ -30,9 +32,10 @@ class ApiClientService<T>{
     Uri url = Uri.parse(this.homeServer + endpoint);
     Response response = await get(url, headers: _headers);
 
-    final result = JsonMapper.deserialize<T>(response.body);
+    _storageService.add("apiResult", response.body);
+    final apiResult = JsonMapper.deserialize<T>(response.body);
 
-    return result;
+    return apiResult;
   }
 
   Future<T?> endpointPost<T>(String endpoint, Map data) async {
@@ -44,8 +47,9 @@ class ApiClientService<T>{
       throw EndpointResponseNotCorrect(response.statusCode);
     }
 
-    final result = JsonMapper.deserialize<T>(response.body);
+    _storageService.add("apiResult", response.body);
+    final apiResult = JsonMapper.deserialize<T>(response.body);
 
-    return result;
+    return apiResult;
   }
 }
