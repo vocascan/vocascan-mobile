@@ -41,7 +41,7 @@ class HomePage extends StatelessWidget{
             ),
             ListTile(
               leading: Icon(Icons.settings),
-              title: Text(tr("Settings")),
+              title: Text(tr("settings")),
               onTap: () {
 
               },
