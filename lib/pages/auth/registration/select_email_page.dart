@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -44,18 +45,18 @@ class _SelectEmailPageState extends State<SelectEmailPage> {
               ),
             ),
             TextFieldContainer(
-              child: Text("Please specify your email and username",
+              child: Text(tr("specify_email"),
                 textAlign: TextAlign.center,),
               decoration: BoxDecoration(),
             ),
-            RoundedInputField(controller: _mailController, hintText: "Email", onChanged: (String email) {
+            RoundedInputField(controller: _mailController, hintText: tr("email"), onChanged: (String email) {
               validateEmail(email);
             },),
             RoundedInputField(icon: Icons.person, controller: _usernameController,
-              hintText: "Username", onChanged: (String username) {
+              hintText: tr("username"), onChanged: (String username) {
               validateUsername(username);
             },),
-            RoundedButton(text: "Continue", disabled: !(_isUsernameValid && _isEmailValid), press: (){
+            RoundedButton(text: tr("continue"), disabled: !(_isUsernameValid && _isEmailValid), press: (){
               return !(_isUsernameValid && _isEmailValid) ? null : widget.controller.animateToPage(widget.controller.page!.toInt() + 1,
                   duration: Duration(milliseconds: 400),
                   curve: Curves.easeIn

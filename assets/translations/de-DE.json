@@ -1,0 +1,21 @@
+{
+  "wrong_password":"Das eingegebene Passwort oder die E-Mail sind falsch",
+  "continue": "Weiter",
+  "select_server": "Wählen Sie Ihren Server für die Synchronisierung aus",
+  "password": "Passwort",
+  "forgot_password": "Passwort vergessen?",
+  "login": "EINLOGGEN",
+  "no_account": "Haben Sie keinen Account?",
+  "sign_up": "Registrieren",
+  "unknown_error": "Ein unbekannter Fehler ist aufgetreten Versuchen Sie es später noch einmal",
+  "email_in_use": "Die verwendete email wird bereits verwendet",
+  "no_internet": "Es besteht keine Verbindung zum Internet",
+  "dismiss": "Schließen",
+  "server": "Server",
+  "username": "Nutzername",
+  "email": "Email",
+  "specify_email": "Bitte geben Sie Ihre E-Mail und Ihren Benutzernamen an",
+  "strong_password": "Bitte verwenden Sie ein sicheres Passwort um ihre Daten zu schützen",
+  "confirm_password": "Passwort Bestätigen",
+  "finish": "Abschließen"
+}

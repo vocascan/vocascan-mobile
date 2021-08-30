@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -58,7 +59,7 @@ class _SelectServerPageState extends State<SelectServerPage> {
                 )
               ),
 
-              TextFieldContainer(child: Text("Select your server for synchronization",
+              TextFieldContainer(child: Text(tr("select_server"),
                 textAlign: TextAlign.center,),
                 decoration: BoxDecoration()
               ),
@@ -67,10 +68,10 @@ class _SelectServerPageState extends State<SelectServerPage> {
                 onChanged: (String serverUrl) async{
                   validateServer(serverUrl);
                 },
-                hintText: 'Server',
+                hintText: tr("server"),
                 icon: Icons.cloud,
               ),
-              RoundedButton(disabled: !_serverValid, text: 'Continue',
+              RoundedButton(disabled: !_serverValid, text: tr("continue"),
                 press: () {
                 return !_serverValid? null: widget.controller.animateToPage(widget.controller.page!.toInt() + 1,
                       duration: Duration(milliseconds: 400),
