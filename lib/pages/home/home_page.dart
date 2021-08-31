@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:vocascan_mobile/constants/colors.dart';
+import 'package:vocascan_mobile/pages/widgets/add_vocabulary.dart';
 
 class HomePage extends StatelessWidget{
   @override
@@ -25,7 +26,12 @@ class HomePage extends StatelessWidget{
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => AddVocabularyPopup(
+
+            ),
+          );
         },
         child: Icon(Icons.add),
         backgroundColor:  primary,
