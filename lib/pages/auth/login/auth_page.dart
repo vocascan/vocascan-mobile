@@ -5,9 +5,7 @@ import 'login_page.dart';
 
 class AuthPage extends StatefulWidget{
   @override
-  State<StatefulWidget> createState() {
-    return _AuthPageState();
-  }
+  State<StatefulWidget> createState() => _AuthPageState();
 
 }
 class _AuthPageState extends State<AuthPage>{

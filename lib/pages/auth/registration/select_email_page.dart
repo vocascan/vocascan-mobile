@@ -17,8 +17,8 @@ class SelectEmailPage extends StatefulWidget{
 }
 
 class _SelectEmailPageState extends State<SelectEmailPage> {
-  final TextEditingController _mailController = new TextEditingController();
-  final TextEditingController _usernameController = new TextEditingController();
+  final TextEditingController _mailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
 
   bool _isUsernameValid = false;
   bool _isEmailValid = false;
