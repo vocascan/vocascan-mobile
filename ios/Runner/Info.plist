@@ -42,6 +42,11 @@
 		<key>UIViewControllerBasedStatusBarAppearance</key>
 		<false/>
 		<key>UIStatusBarHidden</key>
+		<key>CFBundleLocalizations</key>
+        <array>
+        	<string>en</string>
+        	<string>de</string>
+        </array>
 		<false/>
 	</dict>
 </plist>

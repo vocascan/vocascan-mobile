@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -37,7 +38,7 @@ class _LoginPageSate extends State<LoginPage> {
                   ),
                 RoundedInputField(
                   controller: _emailController,
-                  hintText: 'Email',
+                  hintText: tr("Email"),
                   onChanged: (String value) {
                     setState(() {
                       _isEmailValid = RegExp(emailRegex)
@@ -46,7 +47,7 @@ class _LoginPageSate extends State<LoginPage> {
                   },
                 ),
                 RoundedInputField(
-                  hintText: 'Password',
+                  hintText: tr("password"),
                   controller: _passwordController,
                   onChanged: (String value) {
                     setState(() {
@@ -59,24 +60,24 @@ class _LoginPageSate extends State<LoginPage> {
                 ),
                 Container(
                     child: TextButton(onPressed: (){},
-                        child: Text("Forgot Password?"))
+                        child: Text(tr("forgot_password")))
                 ),
                 RoundedButton(disabled: !(_isEmailValid && _isPasswordValid), press: () {
                   return !(_isEmailValid && _isPasswordValid)? null: login();
                 },
-                    text: 'LOGIN',
+                    text: tr("login"),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text("Don’t have an account?"),
+                    Text(tr("no_account")),
                     TextButton(
                       onPressed: () {
                         Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context){
                           return SignUpPage();
                         }));
                       },
-                      child: Text("Sign up"),
+                      child: Text(tr("sign_up")),
                     )
                   ],
                 )
@@ -104,24 +105,24 @@ class _LoginPageSate extends State<LoginPage> {
         switch (endpoint.statusCode){
           case 401:
           case 404:
-            _errorMessage = "Hello it seems that the password or the email was incorrect";
+            _errorMessage = tr("wrong_password");
             break;
           default:
-            _errorMessage = "An unknown error has occurred try again later";
+            _errorMessage = tr("unknown_error");
         }
       });
     }
     on SocketException catch(_){
-      _errorMessage = "It seems that I have no connection to the Internet";
+      _errorMessage = tr("no_internet");
     }
     catch (_){
-      _errorMessage = "An unknown error has occurred try again later";
+      _errorMessage = tr("unknown_error");
     }
 
     if (!loginSuccessfully){
       final snackBar = SnackBar(backgroundColor: Colors.red, content: Text(_errorMessage),
         action:  SnackBarAction(textColor: Colors.white,
-        label: "Dismiss" ,
+        label: tr("dismiss") ,
           onPressed: () {
             return null;
             },),);

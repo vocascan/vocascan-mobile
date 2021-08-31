@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -46,12 +47,12 @@ class _SelectPasswordPageState extends State<SelectPasswordPage> {
                   ),
                 ),
                 TextFieldContainer(
-                  child: Text("Use a strong Password to secure your data",
+                  child: Text(tr("strong_password"),
                     textAlign: TextAlign.center,),
                   decoration: BoxDecoration(),
                 ),
                 RoundedInputField(
-                  hintText: 'Password',
+                  hintText: tr('password'),
                   icon: Icons.password,
                   controller: _passwordController,
                   obscureText: true,
@@ -60,7 +61,7 @@ class _SelectPasswordPageState extends State<SelectPasswordPage> {
                   },
                 ),
                 RoundedInputField(
-                  hintText: 'Confirm Password',
+                  hintText: tr('confirm_password'),
                   icon: Icons.password,
                   controller: _passwordRepeatController,
                   obscureText: true,
@@ -68,7 +69,7 @@ class _SelectPasswordPageState extends State<SelectPasswordPage> {
                     validatePassword();
                   },
                 ),
-                RoundedButton(text: 'Finish', disabled: _passwordValid, press: () {
+                RoundedButton(text: tr("finish"), disabled: _passwordValid, press: () {
                   return _passwordValid ? null : signUp();
                 },)
               ],
@@ -106,23 +107,23 @@ class _SelectPasswordPageState extends State<SelectPasswordPage> {
     on EndpointResponseNotCorrect catch (endpoint){
         switch(endpoint.statusCode){
           case 409:
-            _errorMessage = "Sorry the selected email is already used";
+            _errorMessage = tr("email_in_use");
             break;
           default:
-            _errorMessage = "An unknown error has occurred try again later";
+            _errorMessage = tr("unknown_error");
         }
     }
     on SocketException catch(_){
-        _errorMessage = "It seems that I have no connection to the Internet";
+        _errorMessage = tr("no_internet");
     }
     catch (exception){
-        _errorMessage = "An unknown error has occurred try again later";
+        _errorMessage = tr("unknown_error");
     }
 
     if (!sinUpSuccessfully){
       final snackBar = SnackBar(backgroundColor: Colors.red,
         content: Text(_errorMessage), action:  SnackBarAction(textColor: Colors.white,
-          label: "Dismiss" ,
+          label: tr("dismiss") ,
           onPressed: () {
             return null;
           },),);
