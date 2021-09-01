@@ -22,7 +22,7 @@ class SelectServerPage extends StatefulWidget{
 
 class _SelectServerPageState extends State<SelectServerPage> {
   bool _serverValid = false;
-  TextEditingController _serverUrlController = new TextEditingController();
+  TextEditingController _serverUrlController = TextEditingController();
   StorageService _storageService = StorageService.getInstance();
   ApiClientService _apiClientService = ApiClientService.getInstance();
 

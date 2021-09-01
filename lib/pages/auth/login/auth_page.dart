@@ -10,7 +10,7 @@ class AuthPage extends StatefulWidget{
 }
 class _AuthPageState extends State<AuthPage>{
   bool signUpUser = false;
-  PageController controller = new PageController();
+  PageController controller = PageController();
 
   @override
   Widget build(BuildContext context) {

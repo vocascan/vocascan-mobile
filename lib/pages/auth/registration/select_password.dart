@@ -20,8 +20,8 @@ class SelectPasswordPage extends StatefulWidget{
 }
 
 class _SelectPasswordPageState extends State<SelectPasswordPage> {
-  TextEditingController _passwordController = new TextEditingController();
-  TextEditingController _passwordRepeatController = new TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _passwordRepeatController = TextEditingController();
 
   AuthService _authService = AuthService.getInstance();
   StorageService _storageService = StorageService.getInstance();
