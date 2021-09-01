@@ -49,7 +49,6 @@ class _SelectPasswordPageState extends State<SelectPasswordPage> {
                 TextFieldContainer(
                   child: Text(tr("strong_password"),
                     textAlign: TextAlign.center,),
-                  decoration: BoxDecoration(),
                 ),
                 RoundedInputField(
                   hintText: tr('password'),

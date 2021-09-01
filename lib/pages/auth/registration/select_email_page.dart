@@ -47,7 +47,6 @@ class _SelectEmailPageState extends State<SelectEmailPage> {
             TextFieldContainer(
               child: Text(tr("specify_email"),
                 textAlign: TextAlign.center,),
-              decoration: BoxDecoration(),
             ),
             RoundedInputField(controller: _mailController, hintText: tr("email"), onChanged: (String email) {
               validateEmail(email);

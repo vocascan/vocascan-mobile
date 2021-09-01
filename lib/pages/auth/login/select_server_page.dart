@@ -61,7 +61,6 @@ class _SelectServerPageState extends State<SelectServerPage> {
 
               TextFieldContainer(child: Text(tr("select_server"),
                 textAlign: TextAlign.center,),
-                decoration: BoxDecoration()
               ),
               RoundedInputField(
                 controller: _serverUrlController,

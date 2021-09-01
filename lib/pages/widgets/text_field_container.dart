@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class TextFieldContainer extends StatelessWidget {
   final Widget child;
-  final BoxDecoration decoration;
+  final BoxDecoration? decoration;
   const TextFieldContainer({
-    required this.child, required this.decoration,
+    required this.child, this.decoration,
   });
 
   @override
