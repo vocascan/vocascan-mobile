@@ -18,5 +18,16 @@
   "strong_password": "Bitte verwenden Sie ein sicheres Passwort um ihre Daten zu schützen",
   "confirm_password": "Passwort Bestätigen",
   "finish": "Abschließen",
-  "settings": "Einstellungen"
+  "settings": "Einstellungen",
+  "close": "Schließen",
+  "add_vocabulary": "Vokabel hinzufügen",
+  "cancel": "Abbrechen",
+  "save": "Speichern",
+  "foreign_word": "Fremdwort *",
+  "translation": "Übersetzung *",
+  "translation_count": "{}. Übersetzung *",
+  "add_translation": "Übersetzung hinzufügen",
+  "send": "Absenden",
+  "group": "Gruppe",
+  "package": "Paket *"
 }
