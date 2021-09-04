@@ -39,7 +39,12 @@ class _AddVocabularyPopupState extends State<AddVocabularyPopup> {
             ),)),
             TextFieldContainer(child: TextField(decoration: InputDecoration(
                 hintText: tr("translation"), suffixIcon: IconButton(onPressed: () {
-                    addWidgetDynamic();
+                    _translationCount += 1;
+                    setState(() {
+                      _dynamicWidget.add(TextFieldContainer(child: TextField(decoration: InputDecoration(
+                          hintText: tr("translation_count", args: [_translationCount.toString()]))
+                      )));
+                    });
                   }, icon: Icon(Icons.add), color: primary,)
             ),),),
             Column(
@@ -58,14 +63,5 @@ class _AddVocabularyPopupState extends State<AddVocabularyPopup> {
         ]))
       ))
     );
-  }
-
-  addWidgetDynamic() {
-    _translationCount += 1;
-    setState(() {
-      _dynamicWidget.add(TextFieldContainer(child: TextField(decoration: InputDecoration(
-          hintText: tr("translation_count", args: [_translationCount.toString()]))
-      )));
-    });
   }
 }
