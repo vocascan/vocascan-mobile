@@ -7,6 +7,8 @@ import 'package:vocascan_mobile/pages/widgets/rounded_button.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_input_field.dart';
 import 'package:vocascan_mobile/pages/widgets/text_field_container.dart';
 
+import 'custom_select.dart';
+
 class AddVocabularyPopup extends StatefulWidget{
 
   @override
@@ -15,7 +17,7 @@ class AddVocabularyPopup extends StatefulWidget{
 
 bool _selected = false;
 List<Widget> _dynamicWidget = [];
-int _translationCount = 0;
+int _translationCount = 1;
 
 class _AddVocabularyPopupState extends State<AddVocabularyPopup> {
   @override
@@ -34,6 +36,11 @@ class _AddVocabularyPopupState extends State<AddVocabularyPopup> {
           children: [
             TextFieldContainer(child: Text(tr("add_vocabulary"),
               style: TextStyle(fontSize: 20),),),
+            TextFieldContainer(child:
+              CustomSelect(items: [
+                
+              ]),
+            ),
             TextFieldContainer(child: TextField(decoration: InputDecoration(
                 hintText: tr("foreign_word")
             ),)),
@@ -50,13 +57,6 @@ class _AddVocabularyPopupState extends State<AddVocabularyPopup> {
             Column(
               children: _dynamicWidget
             ),
-            TextFieldContainer(child: TextField(decoration: InputDecoration(hintText: tr("package"),
-                suffixIcon: IconButton(icon: Icon(_selected?Icons.keyboard_arrow_down: Icons.keyboard_arrow_up), onPressed: () {
-                setState(() {
-                  _selected = !_selected;
-                });
-              }, color: primary,)
-            ),)),
             RoundedButton(text: tr("send"), press: (){
 
             })
