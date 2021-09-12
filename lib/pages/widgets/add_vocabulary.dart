@@ -49,8 +49,15 @@ class _AddVocabularyPopupState extends State<AddVocabularyPopup> {
                     _translationCount += 1;
                     setState(() {
                       _dynamicWidget.add(TextFieldContainer(child: TextField(decoration: InputDecoration(
-                          hintText: tr("translation_count", args: [_translationCount.toString()]))
-                      )));
+                          hintText: tr("translation_count", args: [_translationCount.toString()]),
+                          suffixIcon: IconButton(onPressed: (){
+                            setState(() {
+                              _dynamicWidget.removeAt(_translationCount - 2);
+                              _translationCount -= 1;
+                            });
+                            } , icon: Icon(Icons.remove_circle_outline,
+                          color: Colors.red,))
+                      ))));
                     });
                   }, icon: Icon(Icons.add), color: primary,)
             ),),),
