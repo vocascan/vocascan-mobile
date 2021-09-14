@@ -91,14 +91,10 @@ class _LoginPageSate extends State<LoginPage> {
   login() async{
     var email = _emailController.text;
     var password = _passwordController.text;
-    bool loginSuccessfully = false;
 
     try{
-      loginSuccessfully = await _authService.loginUser(email, password);
-
-      if (loginSuccessfully){
-        Navigator.of(context).pushReplacementNamed("/home");
-      }
+      await _authService.loginUser(email, password);
+      await Navigator.of(context).pushReplacementNamed("/home");
     }
     on EndpointResponseNotCorrect catch (endpoint){
       setState(() {
@@ -119,13 +115,13 @@ class _LoginPageSate extends State<LoginPage> {
       _errorMessage = tr("unknown_error");
     }
 
-    if (!loginSuccessfully){
+    if(_errorMessage.isNotEmpty){
       final snackBar = SnackBar(backgroundColor: Colors.red, content: Text(_errorMessage),
         action:  SnackBarAction(textColor: Colors.white,
-        label: tr("dismiss") ,
+          label: tr("dismiss") ,
           onPressed: () {
             return null;
-            },),);
+          },),);
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
