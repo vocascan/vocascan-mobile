@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:vocascan_mobile/pages/auth/login/auth_page.dart';
+import 'package:vocascan_mobile/pages/auth/login/login_page.dart';
 import 'package:vocascan_mobile/pages/auth/registration/sign_up_page.dart';
 import 'package:vocascan_mobile/pages/home/home_page.dart';
 import 'package:vocascan_mobile/services/api_client.dart';
@@ -53,6 +54,7 @@ class VocaScan extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         routes: <String, WidgetBuilder>{
+          '/login': (context) => LoginPage(),
           '/register': (context) => SignUpPage(),
           '/home': (context) => HomePage(),
         },

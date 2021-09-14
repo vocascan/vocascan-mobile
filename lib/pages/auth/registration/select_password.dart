@@ -101,7 +101,7 @@ class _SelectPasswordPageState extends State<SelectPasswordPage> {
       sinUpSuccessfully = await _authService.signupUser(username, email, _passwordController.text);
 
       if (sinUpSuccessfully){
-        Navigator.of(context).pushReplacementNamed("/home");
+        Navigator.of(context).pushReplacementNamed("/login");
       }
     }
     on EndpointResponseNotCorrect catch (endpoint){
