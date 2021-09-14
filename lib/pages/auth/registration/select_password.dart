@@ -92,17 +92,12 @@ class _SelectPasswordPageState extends State<SelectPasswordPage> {
   }
 
   signUp() async{
-    bool sinUpSuccessfully = false;
-
     try{
       String? email = await _storageService.get("email");
       String? username = await _storageService.get("username");
 
-      sinUpSuccessfully = await _authService.signupUser(username, email, _passwordController.text);
-
-      if (sinUpSuccessfully){
-        Navigator.of(context).pushReplacementNamed("/login");
-      }
+      await _authService.signupUser(username, email, _passwordController.text);
+      Navigator.of(context).pushReplacementNamed("/login");
     }
     on EndpointResponseNotCorrect catch (endpoint){
         switch(endpoint.statusCode){
@@ -120,14 +115,12 @@ class _SelectPasswordPageState extends State<SelectPasswordPage> {
         _errorMessage = tr("unknown_error");
     }
 
-    if (!sinUpSuccessfully){
-      final snackBar = SnackBar(backgroundColor: Colors.red,
-        content: Text(_errorMessage), action:  SnackBarAction(textColor: Colors.white,
-          label: tr("dismiss") ,
-          onPressed: () {
-            return null;
-          },),);
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
+    final snackBar = SnackBar(backgroundColor: Colors.red,
+      content: Text(_errorMessage), action:  SnackBarAction(textColor: Colors.white,
+        label: tr("dismiss") ,
+        onPressed: () {
+          return null;
+        },),);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

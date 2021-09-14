@@ -37,7 +37,7 @@ class AuthService {
     return false;
   }
 
-  Future<bool> loginUser(email, password) async {
+  Future<EndpointLogin?> loginUser(email, password) async {
     Map data = {
       "email": email,
       "password": password,
@@ -46,11 +46,12 @@ class AuthService {
     EndpointLogin? endpointLogin = await _apiClientService.endpointPost<EndpointLogin>("user/login", data);
 
     _storageService.add("isLoggedIn", "true");
+    _storageService.add("username", endpointLogin!.user.username);
 
-    return endpointLogin != null;
+    return endpointLogin;
   }
 
-  Future<bool> signupUser(username, email, password) async {
+  Future<EndpointRegister?> signupUser(username, email, password) async {
 
     Map data = {
       "email": email,
@@ -60,6 +61,6 @@ class AuthService {
 
     EndpointRegister? endpointRegister = await _apiClientService.endpointPost<EndpointRegister>("user/register", data);
 
-    return endpointRegister != null;
+    return endpointRegister;
   }
 }
