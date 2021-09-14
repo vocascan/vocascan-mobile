@@ -32,8 +32,11 @@ class ApiClientService<T>{
     Uri url = Uri.parse(this.homeServer + endpoint);
     Response response = await get(url, headers: _headers);
 
+    if(response.statusCode != 200){
+      throw EndpointResponseNotCorrect(response.statusCode);
+    }
+
     final apiResult = JsonMapper.deserialize<T>(response.body);
-    _storageService.add("apiResult", response.body);
 
     return apiResult;
   }
@@ -48,7 +51,6 @@ class ApiClientService<T>{
     }
 
     final apiResult = JsonMapper.deserialize<T>(response.body);
-    _storageService.add("apiResult", response.body);
 
     return apiResult;
   }

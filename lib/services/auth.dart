@@ -28,10 +28,10 @@ class AuthService {
   }
 
   Future<bool> isLoggedIn() async {
-    String? jsonResult = await _storageService.get("apiResult");
+    String? result = await _storageService.get("isLoggedIn");
 
-    if (jsonResult != null){
-      return jsonDecode(jsonResult).containsKey("user");
+    if (result != null){
+      return result == "true";
     }
 
     return false;
@@ -44,6 +44,8 @@ class AuthService {
     };
 
     EndpointLogin? endpointLogin = await _apiClientService.endpointPost<EndpointLogin>("user/login", data);
+
+    _storageService.add("isLoggedIn", "true");
 
     return endpointLogin != null;
   }
