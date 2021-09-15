@@ -102,17 +102,11 @@ class _LoginPageSate extends State<LoginPage> {
           case 401:
           case 404:
             _errorMessage = tr("wrong_password");
-            break;
-          default:
-            _errorMessage = tr("unknown_error");
         }
       });
     }
     on SocketException catch(_){
       _errorMessage = tr("no_internet");
-    }
-    catch (_){
-      _errorMessage = tr("unknown_error");
     }
 
     if(_errorMessage.isNotEmpty){

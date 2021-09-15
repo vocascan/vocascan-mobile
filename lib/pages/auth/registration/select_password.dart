@@ -102,24 +102,21 @@ class _SelectPasswordPageState extends State<SelectPasswordPage> {
         switch(endpoint.statusCode){
           case 409:
             _errorMessage = tr("email_in_use");
-            break;
-          default:
-            _errorMessage = tr("unknown_error");
         }
     }
     on SocketException catch(_){
         _errorMessage = tr("no_internet");
     }
-    catch (exception){
-        _errorMessage = tr("unknown_error");
-    }
 
-    final snackBar = SnackBar(backgroundColor: Colors.red,
-      content: Text(_errorMessage), action:  SnackBarAction(textColor: Colors.white,
-        label: tr("dismiss") ,
-        onPressed: () {
-          return null;
-        },),);
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+    if(_errorMessage.isNotEmpty){
+      final snackBar = SnackBar(backgroundColor: Colors.red,
+        content: Text(_errorMessage), action:  SnackBarAction(textColor: Colors.white,
+          label: tr("dismiss") ,
+          onPressed: () {
+            return null;
+          },),);
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 }
