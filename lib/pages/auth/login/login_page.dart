@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:vocascan_mobile/constants/colors.dart';
 import 'package:vocascan_mobile/constants/values.dart';
 import 'package:vocascan_mobile/exceptions/response_note_correct.dart';
 import 'package:vocascan_mobile/pages/auth/registration/sign_up_page.dart';
@@ -25,6 +26,7 @@ class _LoginPageSate extends State<LoginPage> {
 
   bool _isEmailValid = false;
   bool _isPasswordValid = false;
+  bool _obscureText = false;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +57,13 @@ class _LoginPageSate extends State<LoginPage> {
                           _passwordController.text.isNotEmpty;
                     });
                   },
-                  obscureText: true,
+                  obscureText: _obscureText,
+                  suffixIconButton: IconButton(icon: _obscureText? Icon(Icons.visibility, color: primary,) :
+                    Icon(Icons.visibility_off, color: primary,), onPressed: () {
+                    setState(() {
+                      _obscureText = !_obscureText;
+                    });
+                  },),
                   icon: Icons.password,
                 ),
                 Container(
