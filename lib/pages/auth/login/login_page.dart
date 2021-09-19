@@ -26,7 +26,7 @@ class _LoginPageSate extends State<LoginPage> {
 
   bool _isEmailValid = false;
   bool _isPasswordValid = false;
-  bool _obscureText = false;
+  bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
