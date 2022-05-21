@@ -8,8 +8,8 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "apk:build": "cd android && gradlew assembleRelease",
-    "apk:install": "adb install -r android/app/build/outputs/apk/release/app-release.apk"
+    "build:apk": "node scripts/build.js --apk",
+    "install:apk": "adb install -r outputs/android/apk/app-release.apk"
   },
   "dependencies": {
     "react": "17.0.2",
@@ -21,8 +21,11 @@
     "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^2.0.0",
     "babel-jest": "^26.6.3",
+    "commander": "^9.2.0",
     "eslint": "^7.32.0",
-    "jest": "^26.6.3",
+    "execa": "^6.1.0",
+    "fs-extra": "^10.1.0",
+    "listr": "^0.14.3",
     "metro-react-native-babel-preset": "^0.67.0",
     "react-test-renderer": "17.0.2"
   },

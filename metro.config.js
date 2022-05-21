@@ -6,6 +6,9 @@
  */
 
 module.exports = {
+  resolver: {
+    blockList: [/temp\/vocascan-frontend/],
+  },
   transformer: {
     getTransformOptions: async () => ({
       transform: {
