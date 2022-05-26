@@ -39,14 +39,23 @@ const VOCASCAN_FRONTEND_BUILD_SRC = path.resolve(
 );
 const VOCASCAN_FRONTEND_BUILD_DEST = path.resolve(ANDROID_ASSETS_DIR, 'build');
 
+const ANDROID_BUNDLE_FILE_NAME = 'app-release.aab';
+const ANDROID_BUNDLE_SRC = path.resolve(
+  ANDROID_BUILD_DIR,
+  'outputs',
+  'bundle',
+  'release',
+);
+const ANDROID_BUNDLE_DEST = path.resolve(OUTPUT_DIR, 'android', 'bundle');
+
 const ANDROID_APK_FILE_NAME = 'app-release.apk';
-const ANDROID_APK_BUILD_SRC = path.resolve(
+const ANDROID_APK_SRC = path.resolve(
   ANDROID_BUILD_DIR,
   'outputs',
   'apk',
   'release',
 );
-const ANDROID_APK_BUILD_DEST = path.resolve(OUTPUT_DIR, 'android', 'apk');
+const ANDROID_APK_DEST = path.resolve(OUTPUT_DIR, 'android', 'apk');
 
 (async () => {
   const { execaCommand } = await import('execa');
@@ -128,7 +137,9 @@ const ANDROID_APK_BUILD_DEST = path.resolve(OUTPUT_DIR, 'android', 'apk');
                     cwd: ANDROID_DIR,
                   });
                 }
-                task.report(new Error('Not implemented'));
+                return execaCommand('gradlew bundleRelease', {
+                  cwd: ANDROID_DIR,
+                });
               },
             },
             {
@@ -151,17 +162,18 @@ const ANDROID_APK_BUILD_DEST = path.resolve(OUTPUT_DIR, 'android', 'apk');
               enabled: ctx => ctx.android,
               task: async (ctx, task) => {
                 if (ctx.apk) {
-                  if (!fs.existsSync(ANDROID_APK_BUILD_SRC)) {
-                    task.report(new Error('APK file does not exist'));
-                  }
-                  await fs.ensureDir(ANDROID_APK_BUILD_DEST);
+                  await fs.ensureDir(ANDROID_APK_DEST);
                   task.title = `${task.title} (apk)`;
                   return fs.copyFile(
-                    path.resolve(ANDROID_APK_BUILD_SRC, ANDROID_APK_FILE_NAME),
-                    path.resolve(ANDROID_APK_BUILD_DEST, ANDROID_APK_FILE_NAME),
+                    path.resolve(ANDROID_APK_SRC, ANDROID_APK_FILE_NAME),
+                    path.resolve(ANDROID_APK_DEST, ANDROID_APK_FILE_NAME),
                   );
                 }
-                task.report(new Error('Not implemented'));
+                fs.ensureDir(ANDROID_BUNDLE_DEST);
+                return fs.copyFile(
+                  path.resolve(ANDROID_BUNDLE_SRC, ANDROID_BUNDLE_FILE_NAME),
+                  path.resolve(ANDROID_BUNDLE_DEST, ANDROID_BUNDLE_FILE_NAME),
+                );
               },
             },
             {

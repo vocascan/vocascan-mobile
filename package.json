@@ -12,7 +12,7 @@
     "build:ios": "node scripts/build.js --ios",
     "build:android": "node scripts/build.js --android",
     "build:android:apk": "node scripts/build.js --android --apk",
-    "install:android:apk": "adb install -r outputs/android/apk/app-release.apk"
+    "install:android": "adb install -r outputs/android/apk/app-release.apk"
   },
   "dependencies": {
     "react": "17.0.2",

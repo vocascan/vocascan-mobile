@@ -21,16 +21,9 @@ You can either develop against the vocascan testing environment or start your ow
 
 Run `yarn build` to build everything. Outputs are placed into `outputs/`.
 
-**iOS**
+| **Platform** | iOS | Android (AAB) | Android (APK) |
+| --- | --- | --- | --- |
+| **Script** | *Not implemented* | `yarn build:android` | `yarn build:android:apk` |
+| **Output Directory** | *Not implemented* | `outputs/android/bundle` | `outputs/android/apk` |
 
-*Not implemented*
-
-**Android**
-
-*Not implemented*
-
-**APK**
-
-Build an apk with `yarn build:android:apk`. It will be available in `outputs/android/apk` and can be installed through the adb with `yarn install:android:apk`.
-
-> Note: APKs should only be used for testing. Build an android-app-bundle ([aab](https://developer.android.com/guide/app-bundle)) for production use.
+> **WARNING** Before publishing the android app, a custom keystore has to be created to sign it https://reactnative.dev/docs/signed-apk-android.
