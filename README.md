@@ -19,8 +19,18 @@ You can either develop against the vocascan testing environment or start your ow
 
 ## Building
 
+Run `yarn build` to build everything. Outputs are placed into `outputs/`.
+
+**iOS**
+
+*Not implemented*
+
+**Android**
+
+*Not implemented*
+
 **APK**
 
-Build an apk with `yarn build:apk`. It will be available in `outputs/android/apk` and can be installed through the adb with `yarn install:apk`.
+Build an apk with `yarn build:android:apk`. It will be available in `outputs/android/apk` and can be installed through the adb with `yarn install:android:apk`.
 
 > Note: APKs should only be used for testing. Build an android-app-bundle ([aab](https://developer.android.com/guide/app-bundle)) for production use.

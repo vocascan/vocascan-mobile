@@ -3,11 +3,18 @@ const Listr = require('listr');
 const path = require('path');
 const fs = require('fs-extra');
 
-program.option('--apk');
+program
+  .option('--ios', 'build ios app')
+  .option('--android', 'build android app')
+  .option('--apk', 'generate apk file for android', false);
 
 program.parse();
 
 const options = program.opts();
+
+if (!options.ios && !options.android) {
+  throw new Error('No build platform specified (--ios, --android)');
+}
 
 const VOCASCAN_FRONTEND_REPO_URL =
   'https://github.com/vocascan/vocascan-frontend.git';
@@ -87,6 +94,7 @@ const ANDROID_APK_BUILD_DEST = path.resolve(OUTPUT_DIR, 'android', 'apk');
           [
             {
               title: 'Prepare android build',
+              enabled: ctx => ctx.android,
               task: async () => {
                 await fs.ensureDir(ANDROID_ASSETS_DIR);
                 await fs.copy(
@@ -97,6 +105,7 @@ const ANDROID_APK_BUILD_DEST = path.resolve(OUTPUT_DIR, 'android', 'apk');
             },
             {
               title: 'Prepare iOS build',
+              enabled: ctx => ctx.ios,
               skip: () => 'Not implemented',
               task: () => {},
             },
@@ -111,6 +120,7 @@ const ANDROID_APK_BUILD_DEST = path.resolve(OUTPUT_DIR, 'android', 'apk');
           [
             {
               title: 'Build android app',
+              enabled: ctx => ctx.android,
               task: async (ctx, task) => {
                 if (ctx.apk) {
                   task.title = `${task.title} (apk)`;
@@ -123,6 +133,7 @@ const ANDROID_APK_BUILD_DEST = path.resolve(OUTPUT_DIR, 'android', 'apk');
             },
             {
               title: 'Build iOS app',
+              enabled: ctx => ctx.ios,
               skip: () => 'Not implemented',
               task: () => {},
             },
@@ -137,6 +148,7 @@ const ANDROID_APK_BUILD_DEST = path.resolve(OUTPUT_DIR, 'android', 'apk');
           [
             {
               title: 'Write android build',
+              enabled: ctx => ctx.android,
               task: async (ctx, task) => {
                 if (ctx.apk) {
                   if (!fs.existsSync(ANDROID_APK_BUILD_SRC)) {
@@ -154,6 +166,7 @@ const ANDROID_APK_BUILD_DEST = path.resolve(OUTPUT_DIR, 'android', 'apk');
             },
             {
               title: 'Write iOS build',
+              enabled: ctx => ctx.ios,
               skip: () => 'Not implemented',
               task: () => {},
             },
