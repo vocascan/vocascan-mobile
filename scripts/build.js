@@ -4,9 +4,14 @@ const path = require('path');
 const fs = require('fs-extra');
 
 program
-  .option('--ios', 'build ios app')
-  .option('--android', 'build android app')
-  .option('--apk', 'generate apk file for android', false);
+  .option(
+    '-b, --vocascan-frontend-branch <branch>',
+    'use this branch for building the vocascan-frontend app',
+    'main',
+  )
+  .option('--ios', 'build the ios app')
+  .option('--android', 'build the android app')
+  .option('--apk', 'generate an apk file for android', false);
 
 program.parse();
 
@@ -65,11 +70,13 @@ const ANDROID_APK_DEST = path.resolve(OUTPUT_DIR, 'android', 'apk');
       title: 'Pull vocascan-frontend',
       task: async () => {
         await fs.ensureDir(TEMP_DIR);
-        return fs.existsSync(VOCASCAN_FRONTEND_DIR)
-          ? execaCommand('git pull', { cwd: VOCASCAN_FRONTEND_DIR })
-          : execaCommand(`git clone ${VOCASCAN_FRONTEND_REPO_URL}`, {
-              cwd: TEMP_DIR,
-            });
+        await fs.remove(VOCASCAN_FRONTEND_DIR);
+        return execaCommand(
+          `git clone --depth 1 --single-branch --branch ${options.vocascanFrontendBranch} ${VOCASCAN_FRONTEND_REPO_URL}`,
+          {
+            cwd: TEMP_DIR,
+          },
+        );
       },
     },
     {

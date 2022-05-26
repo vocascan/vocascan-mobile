@@ -27,3 +27,12 @@ Run `yarn build` to build everything. Outputs are placed into `outputs/`.
 | **Output Directory** | *Not implemented* | `outputs/android/bundle` | `outputs/android/apk` |
 
 > **WARNING** Before publishing the android app, a custom keystore has to be created to sign it https://reactnative.dev/docs/signed-apk-android.
+
+**Different Branch / Tag**
+
+Use the option `--vocascan-frontend-branch` (`-b`) to build a different vocascan-frontend branch / tag. (Default: `main`)
+
+Example:
+```bash
+yarn build:android -b v1.2.0
+```
