@@ -5,8 +5,13 @@ const fs = require('fs-extra');
 
 program
   .option(
-    '-b, --vocascan-frontend-branch <branch>',
-    'use this branch for building the vocascan-frontend app',
+    '-r, --frontend-repository <url>',
+    'use this repository for building the frontend app',
+    'https://github.com/vocascan/vocascan-frontend.git',
+  )
+  .option(
+    '-b, --frontend-branch <branch>',
+    'use this branch of the frontend repository for building the frontend app',
     'main',
   )
   .option('--ios', 'build the ios app')
@@ -20,9 +25,6 @@ const options = program.opts();
 if (!options.ios && !options.android) {
   throw new Error('No build platform specified (--ios, --android)');
 }
-
-const VOCASCAN_FRONTEND_REPO_URL =
-  'https://github.com/vocascan/vocascan-frontend.git';
 
 const PROJECT_ROOT_DIR = path.resolve(__dirname, '..');
 const TEMP_DIR = path.resolve(PROJECT_ROOT_DIR, 'temp');
@@ -72,7 +74,7 @@ const ANDROID_APK_DEST = path.resolve(OUTPUT_DIR, 'android', 'apk');
         await fs.ensureDir(TEMP_DIR);
         await fs.remove(VOCASCAN_FRONTEND_DIR);
         return execaCommand(
-          `git clone --depth 1 --single-branch --branch ${options.vocascanFrontendBranch} ${VOCASCAN_FRONTEND_REPO_URL}`,
+          `git clone --depth 1 --single-branch --branch ${options.frontendBranch} ${options.frontendRepository}`,
           {
             cwd: TEMP_DIR,
           },

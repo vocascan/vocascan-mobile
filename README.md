@@ -30,9 +30,18 @@ Run `yarn build` to build everything. Outputs are placed into `outputs/`.
 
 **Different Branch / Tag**
 
-Use the option `--vocascan-frontend-branch` (`-b`) to build a different vocascan-frontend branch / tag. (Default: `main`)
+Use the option `--frontend-branch` (`-b`) to build a different frontend branch / tag. (Default: `main`)
 
 Example:
 ```bash
-yarn build:android -b v1.2.0
+yarn build -b v1.2.0
+```
+
+**Different Repository**
+
+Use the option `--frontend-repository` (`-r`) to build a different frontend repository. (Default: `https://github.com/vocascan/vocascan-frontend.git`)
+
+Example:
+```bash
+yarn build -r https://github.com/my-username/vocascan-frontend.git
 ```
